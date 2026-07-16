@@ -7,7 +7,7 @@ export const BottomNavigation: React.FC = () => {
   const navigate = useNavigate();
 
   const navItems = [
-    { path: '/', label: 'Home', icon: Home },
+    { path: '/home', label: 'Home', icon: Home },
     { path: '/league', label: 'Leagues', icon: Trophy },
     { path: '/profile', label: 'Profile', icon: User },
   ];
@@ -17,7 +17,7 @@ export const BottomNavigation: React.FC = () => {
       {navItems.map((item) => {
         const isActive =
           location.pathname === item.path ||
-          (item.path !== '/' && location.pathname.startsWith(item.path));
+          location.pathname.startsWith(item.path);
 
         return (
           <button

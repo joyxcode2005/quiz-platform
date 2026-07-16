@@ -164,21 +164,7 @@ export const Home: React.FC = () => {
           </div>
         </section>
 
-        {/* ---------------- QUICK LINKS (anchors, same page) ---------------- */}
-        <section className="flex justify-between items-center px-2 py-6 border-t-[3px] border-b-[3px] border-[var(--ink)]">
-          <a href="#about" className="flex flex-col items-center gap-2 hover:text-[var(--signal)]">
-            <Info size={22} />
-            <span className="text-[10px] font-bold uppercase font-data tracking-wide">About</span>
-          </a>
-          <a href="#contact" className="flex flex-col items-center gap-2 hover:text-[var(--signal)]">
-            <Mail size={22} />
-            <span className="text-[10px] font-bold uppercase font-data tracking-wide">Contact</span>
-          </a>
-          <button className="flex flex-col items-center gap-2 hover:text-[var(--signal)]">
-            <HelpCircle size={22} />
-            <span className="text-[10px] font-bold uppercase font-data tracking-wide">How to Play</span>
-          </button>
-        </section>
+        
 
         {/* ---------------- ABOUT ---------------- */}
         <section id="about" className="space-y-6 scroll-mt-20">

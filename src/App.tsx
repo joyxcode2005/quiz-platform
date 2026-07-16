@@ -1,30 +1,107 @@
-import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { AppProvider } from './context/AppContext';
-import { Home } from './pages/Home';
-import { LeagueMenu } from './pages/league/LeagueMenu';
-import { WeeklyLeaderboard } from './pages/league/WeeklyLeaderboard';
-import { MatchResults } from './pages/league/MatchResults';
-import { ReadSchedule } from './pages/league/ReadSchedule';
-import { InterestToRead } from './pages/league/InterestToRead';
-import { Profile } from './pages/profile/Profile';
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext";
+import { AppProvider } from "./context/AppContext";
+import { ProtectedRoute } from "./components/ProtectedRoute";
+import { RootRedirect } from "./components/RootRedirect";
 
-function App() {
+import LoginPage from "./pages/LoginPage";
+import UnauthorizedPage from "./pages/UnauthorizedPage";
+import AdminPanel from "./pages/AdminPanel";
+
+import { Home } from "./pages/Home";
+import { LeagueMenu } from "./pages/league/LeagueMenu";
+import { WeeklyLeaderboard } from "./pages/league/WeeklyLeaderboard";
+import { MatchResults } from "./pages/league/MatchResults";
+import { ReadSchedule } from "./pages/league/ReadSchedule";
+import { InterestToRead } from "./pages/league/InterestToRead";
+import { Profile } from "./pages/profile/Profile";
+import { AuthCallback } from './pages/AuthCallback';
+
+export default function App() {
   return (
-    <AppProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/league" element={<LeagueMenu />} />
-          <Route path="/league/leaderboard" element={<WeeklyLeaderboard />} />
-          <Route path="/league/results" element={<MatchResults />} />
-          <Route path="/league/read/schedule" element={<ReadSchedule />} />
-          <Route path="/league/read/open" element={<InterestToRead />} />
-          <Route path="/profile" element={<Profile />} />
-        </Routes>
-      </BrowserRouter>
-    </AppProvider>
+    <BrowserRouter>
+      <AuthProvider>
+        <AppProvider>
+          <Routes>
+           
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/unauthorized" element={<UnauthorizedPage />} />
+            <Route path="/" element={<RootRedirect />} />
+
+            <Route
+              path="/admin"
+              element={
+                <ProtectedRoute allowedRoles={["Admin"]}>
+                  <AdminPanel />
+                </ProtectedRoute>
+              }
+            />
+
+            {/* --- Quiz product UI - new, additive, gated behind login --- */}
+            <Route path="/auth/callback" element={<AuthCallback />} />
+            
+            <Route
+              path="/home"
+              element={
+                <ProtectedRoute>
+                  <Home />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/league"
+              element={
+                <ProtectedRoute>
+                  <LeagueMenu />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/league/leaderboard"
+              element={
+                <ProtectedRoute>
+                  <WeeklyLeaderboard />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/league/results"
+              element={
+                <ProtectedRoute>
+                  <MatchResults />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/league/read/schedule"
+              element={
+                <ProtectedRoute>
+                  <ReadSchedule />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/league/read/open"
+              element={
+                <ProtectedRoute>
+                  <InterestToRead />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <ProtectedRoute>
+                  <Profile />
+                </ProtectedRoute>
+              }
+            />
+
+            {/* Catch-all route: Redirects any unknown URLs (like /dashboard) safely back to root */}
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </AppProvider>
+      </AuthProvider>
+    </BrowserRouter>
   );
 }
-
-export default App;

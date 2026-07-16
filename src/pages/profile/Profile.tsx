@@ -1,19 +1,32 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { PageLayout } from '../../components/layout/PageLayout';
 import { User as UserIcon, Calendar, Heart, Settings, LogOut, ChevronRight, type LucideIcon } from 'lucide-react';
-import { useAppContext } from '../../context/AppContext';
+
+import { useAuth } from '../../context/AuthContext';
 
 interface MenuItemProps {
   icon: LucideIcon;
   title: string;
   isDanger?: boolean;
+  onClick?: () => void;
 }
 
 export const Profile: React.FC = () => {
-  const { user } = useAppContext();
+  const navigate = useNavigate();
+  // Pull the dummy stats from AppContext
+  
+  // Pull the real profile data and logout function from AuthContext
+  const { profile, signOut } = useAuth();
 
-  const MenuItem = ({ icon: Icon, title, isDanger = false }: MenuItemProps) => (
+  const handleLogout = async () => {
+    await signOut();
+    navigate('/login', { replace: true });
+  };
+
+  const MenuItem = ({ icon: Icon, title, isDanger = false, onClick }: MenuItemProps) => (
     <button
+      onClick={onClick}
       className={`w-full flex items-center justify-between p-4 border-b-[3px] border-[var(--ink)] hover:bg-[var(--bone)] transition-colors ${
         isDanger ? 'text-[var(--signal)]' : 'text-[var(--ink)]'
       }`}
@@ -27,9 +40,9 @@ export const Profile: React.FC = () => {
   );
 
   const stats = [
-    { label: 'Games Played', value: user?.gamesPlayed },
-    { label: 'Games Read', value: user?.gamesRead },
-    { label: 'Interests Sent', value: user?.interestsSent },
+    { label: 'Games Played', value: profile?.gamesPlayed },
+    { label: 'Games Read', value: profile?.gamesRead },
+    { label: 'Interests Sent', value: profile?.interestsSent },
   ];
 
   return (
@@ -38,8 +51,12 @@ export const Profile: React.FC = () => {
         <div className="w-24 h-24 brutal-border brutal-shadow-sm bg-white flex items-center justify-center rounded-full mb-4">
           <UserIcon size={44} className="text-black/40" />
         </div>
-        <h2 className="font-black text-2xl uppercase">{user?.name}</h2>
-        <p className="font-bold text-black/50 font-data text-sm uppercase tracking-widest mt-1">{user?.role}</p>
+        
+        {/* Render real data from Supabase AuthContext */}
+        <h2 className="font-black text-2xl uppercase">{profile?.name || 'Player'}</h2>
+        <p className="font-bold text-black/50 font-data text-sm uppercase tracking-widest mt-1">
+          {profile?.role || 'Unassigned Role'}
+        </p>
       </div>
 
       <div className="flex border-b-[3px] border-[var(--ink)] bg-white md:grid md:grid-cols-3">
@@ -60,7 +77,8 @@ export const Profile: React.FC = () => {
         <MenuItem icon={Calendar} title="My Read Schedule" />
         <MenuItem icon={Heart} title="My Interests" />
         <MenuItem icon={Settings} title="Account Settings" />
-        <MenuItem icon={LogOut} title="Logout" isDanger />
+        {/* Added onClick handler to trigger Supabase sign out */}
+        <MenuItem icon={LogOut} title="Logout" isDanger onClick={handleLogout} />
       </div>
     </PageLayout>
   );

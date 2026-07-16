@@ -29,7 +29,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         }
 
         supabase
-        .from('user')
+        .from('users')
         .select('role, name')
         .eq('id', session.user.id)
         .single()

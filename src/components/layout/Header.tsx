@@ -5,7 +5,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 export const Header: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const isHome = location.pathname === '/';
+  const isHome = location.pathname === '/home';
 
   const getTitle = () => {
     if (location.pathname.includes('/league/leaderboard')) return 'Leaderboard';
