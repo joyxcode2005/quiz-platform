@@ -1,9 +1,10 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { PageLayout } from '../../components/layout/PageLayout';
+import { motion } from 'framer-motion';
 import { User as UserIcon, Calendar, Heart, Settings, LogOut, ChevronRight, type LucideIcon } from 'lucide-react';
-
+import { PageLayout } from '../../components/layout/PageLayout';
 import { useAuth } from '../../context/AuthContext';
+import { staggerContainer, staggerItem } from '../../lib/animations';
 
 interface MenuItemProps {
   icon: LucideIcon;
@@ -14,10 +15,7 @@ interface MenuItemProps {
 
 export const Profile: React.FC = () => {
   const navigate = useNavigate();
-  // Pull the dummy stats from AppContext
-  
-  // Pull the real profile data and logout function from AuthContext
-  const { profile, signOut } = useAuth();
+  const { profile, user, signOut } = useAuth();
 
   const handleLogout = async () => {
     await signOut();
@@ -25,61 +23,98 @@ export const Profile: React.FC = () => {
   };
 
   const MenuItem = ({ icon: Icon, title, isDanger = false, onClick }: MenuItemProps) => (
-    <button
+    <motion.button
+      whileTap={{ scale: 0.98 }}
       onClick={onClick}
-      className={`w-full flex items-center justify-between p-4 border-b-[3px] border-[var(--ink)] hover:bg-[var(--bone)] transition-colors ${
-        isDanger ? 'text-[var(--signal)]' : 'text-[var(--ink)]'
-      }`}
+      className="neu-panel w-full flex items-center justify-between p-4 bg-white mb-4"
     >
       <div className="flex items-center gap-4">
-        <Icon size={22} color={isDanger ? '#FF3B0A' : '#0D0D0D'} />
-        <span className="font-bold uppercase text-sm tracking-wide">{title}</span>
+        <div className="neu-puck" style={{ background: isDanger ? 'var(--neu-coral)' : 'var(--neu-bg)' }}>
+          <Icon size={20} color={isDanger ? 'white' : 'var(--ink)'} strokeWidth={2.5} />
+        </div>
+        <span className={`font-black uppercase text-sm tracking-wide ${isDanger ? 'text-[var(--neu-coral)]' : 'text-[var(--ink)]'}`}>
+          {title}
+        </span>
       </div>
-      {!isDanger && <ChevronRight size={20} />}
-    </button>
+      {!isDanger && <ChevronRight size={22} strokeWidth={3} className="text-[var(--ink)]/30" />}
+    </motion.button>
   );
 
-  const stats = [
-    { label: 'Games Played', value: profile?.gamesPlayed },
-    { label: 'Games Read', value: profile?.gamesRead },
-    { label: 'Interests Sent', value: profile?.interestsSent },
-  ];
+  const displayName = 
+    profile?.name || 
+    user?.user_metadata?.full_name || 
+    user?.user_metadata?.name || 
+    user?.email?.split('@')[0] || 
+    'Unknown Player';
 
   return (
     <PageLayout>
-      <div className="flex flex-col items-center pt-8 pb-6 border-b-[3px] border-[var(--ink)] bg-[var(--bone)]">
-        <div className="w-24 h-24 brutal-border brutal-shadow-sm bg-white flex items-center justify-center rounded-full mb-4">
-          <UserIcon size={44} className="text-black/40" />
-        </div>
-        
-        {/* Render real data from Supabase AuthContext */}
-        <h2 className="font-black text-2xl uppercase">{profile?.name || 'Player'}</h2>
-        <p className="font-bold text-black/50 font-data text-sm uppercase tracking-widest mt-1">
-          {profile?.role || 'Unassigned Role'}
-        </p>
-      </div>
-
-      <div className="flex border-b-[3px] border-[var(--ink)] bg-white md:grid md:grid-cols-3">
-        {stats.map((s, i) => (
-          <div
-            key={s.label}
-            className={`flex-1 py-5 flex flex-col items-center justify-center ${
-              i < stats.length - 1 ? 'border-r-[3px] border-[var(--ink)]' : ''
-            }`}
-          >
-            <span className="font-data font-black text-2xl text-[var(--signal)]">{s.value}</span>
-            <span className="text-[10px] font-bold uppercase tracking-widest text-black/50 mt-1">{s.label}</span>
+      <motion.div 
+        variants={staggerContainer} 
+        initial="hidden" 
+        animate="show" 
+        className="p-4 md:p-8 flex flex-col gap-6 max-w-4xl mx-auto"
+      >
+        {/* HERO: Poster style to hit hard */}
+        <motion.div variants={staggerItem}>
+          <div className="poster-block torn-bottom flex flex-col items-center justify-center py-12 px-4 relative">
+            <div className="halftone" />
+            <div className="poster-orb w-64 h-64 -top-10 -left-10 opacity-60" />
+            
+            <div className="relative z-10 neu-puck w-24 h-24 bg-white mb-6">
+              <UserIcon size={40} className="text-[var(--ink)]" strokeWidth={2.5} />
+            </div>
+            
+            <h2 className="relative z-10 poster-type text-3xl md:text-4xl text-[var(--bone)] text-center">
+              {displayName}
+            </h2>
+            
+            <div className="relative z-10 poster-sticker text-xs px-4 py-1.5 mt-4">
+              {profile?.role || 'Player'}
+            </div>
           </div>
-        ))}
-      </div>
+        </motion.div>
 
-      <div className="mt-4">
-        <MenuItem icon={Calendar} title="My Read Schedule" />
-        <MenuItem icon={Heart} title="My Interests" />
-        <MenuItem icon={Settings} title="Account Settings" />
-        {/* Added onClick handler to trigger Supabase sign out */}
-        <MenuItem icon={LogOut} title="Logout" isDanger onClick={handleLogout} />
-      </div>
+        {/* STATS: Neumorphic style for tactile data */}
+        <motion.div variants={staggerItem} className="grid grid-cols-2 gap-5 mt-2">
+          <div className="neu-panel flex flex-col items-center justify-center p-6 bg-white">
+            <span className="font-black text-5xl text-[var(--neu-blue)]">
+              {profile?.gamesPlayed || profile?.games_played || 0}
+            </span>
+            <span className="text-[10px] font-black font-data uppercase tracking-widest text-[var(--ink)]/50 mt-2 text-center leading-tight">
+              Games<br/>Played
+            </span>
+          </div>
+          
+          <div className="grid grid-rows-2 gap-5">
+            <div className="neu-panel flex flex-col items-center justify-center p-3 bg-white">
+              <span className="font-black text-2xl text-[var(--ink)]">
+                {profile?.gamesRead || profile?.games_read || 0}
+              </span>
+              <span className="text-[9px] font-black font-data uppercase tracking-widest text-[var(--ink)]/50 mt-1">
+                Games Read
+              </span>
+            </div>
+            
+            <div className="neu-panel flex flex-col items-center justify-center p-3 bg-white">
+              <span className="font-black text-2xl text-[var(--ink)]">
+                {profile?.interestsSent || profile?.interests_sent || 0}
+              </span>
+              <span className="text-[9px] font-black font-data uppercase tracking-widest text-[var(--ink)]/50 mt-1">
+                Interests
+              </span>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* MENU: Soft Neumorphic buttons */}
+        <motion.div variants={staggerItem} className="mt-4 pb-12">
+          <MenuItem icon={Calendar} title="My Read Schedule" />
+          <MenuItem icon={Heart} title="My Interests" />
+          <MenuItem icon={Settings} title="Account Settings" />
+          <MenuItem icon={LogOut} title="Logout" isDanger onClick={handleLogout} />
+        </motion.div>
+      </motion.div>
     </PageLayout>
   );
 };

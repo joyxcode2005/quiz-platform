@@ -11,6 +11,7 @@ import AdminPanel from "./pages/AdminPanel";
 import { Home } from "./pages/Home";
 import { LeagueMenu } from "./pages/league/LeagueMenu";
 import { WeeklyLeaderboard } from "./pages/league/WeeklyLeaderboard";
+import { SeasonalLeaderboard } from "./pages/league/SeasonalLeaderboard";
 import { MatchResults } from "./pages/league/MatchResults";
 import { ReadSchedule } from "./pages/league/ReadSchedule";
 import { InterestToRead } from "./pages/league/InterestToRead";
@@ -53,6 +54,14 @@ export default function App() {
               element={
                 <ProtectedRoute>
                   <LeagueMenu />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/league/season"
+              element={
+                <ProtectedRoute>
+                  <SeasonalLeaderboard />
                 </ProtectedRoute>
               }
             />

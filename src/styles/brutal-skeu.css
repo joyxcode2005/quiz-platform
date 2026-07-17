@@ -1,0 +1,121 @@
+/* =========================================================================
+   BRUTAL-SKEU — tactile skeuomorphic layer for the existing brutalist system.
+   Import once in your global stylesheet (after your base tokens):
+     @import './styles/brutal-skeu.css';
+   Reuses your existing tokens: --ink, --bone, --signal, --signal-soft.
+   ========================================================================= */
+
+:root {
+  --brass: #B08D57;
+  --brass-hi: #E8D2A0;
+  --brass-lo: #6E5227;
+  --paper-noise: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+}
+
+/* ---- Paper grain: lay over any card for tactile physicality ---- */
+.grain::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: var(--paper-noise);
+  opacity: 0.05;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+/* ---- Brass rivet: a physical bolt anchoring a card corner ---- */
+.rivet {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 32% 28%, var(--brass-hi), var(--brass) 55%, var(--brass-lo) 100%);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.4) inset, 0 1px 2px rgba(0,0,0,0.5);
+}
+.rivet-corners { position: absolute; inset: 8px; pointer-events: none; }
+.rivet-corners .rivet { position: absolute; }
+.rivet-corners .rivet:nth-child(1) { top: 0; left: 0; }
+.rivet-corners .rivet:nth-child(2) { top: 0; right: 0; }
+.rivet-corners .rivet:nth-child(3) { bottom: 0; left: 0; }
+.rivet-corners .rivet:nth-child(4) { bottom: 0; right: 0; }
+
+/* ---- Stitched seam: a dashed double-line like sewn thread ---- */
+.stitch-line {
+  height: 0;
+  border-top: 2px dashed currentColor;
+  opacity: 0.35;
+  position: relative;
+}
+.stitch-line::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 0;
+  right: 0;
+  border-top: 2px dashed currentColor;
+  opacity: 0.35;
+}
+
+/* ---- Punch perforation: ticket-edge holes ---- */
+.punch-row {
+  height: 10px;
+  background-image: radial-gradient(circle, var(--bone) 3.2px, transparent 3.4px);
+  background-size: 16px 10px;
+  background-repeat: repeat-x;
+  background-position: center;
+}
+.punch-row-top { transform: translateY(-5px); }
+.punch-row-bottom { transform: translateY(5px); }
+
+/* ---- Embossed / engraved text ---- */
+.emboss-light {
+  color: var(--ink);
+  text-shadow: 0 1px 0 rgba(255,255,255,0.6), 0 -1px 0 rgba(0,0,0,0.15);
+}
+.emboss-dark {
+  color: var(--bone);
+  text-shadow: 0 -1px 0 rgba(0,0,0,0.6), 0 1px 0 rgba(255,255,255,0.08);
+}
+
+/* ---- Felt banner: physical scoreboard backing ---- */
+.felt-banner {
+  background:
+    radial-gradient(120% 140% at 50% -10%, rgba(255,255,255,0.06), transparent 60%),
+    repeating-linear-gradient(115deg, rgba(255,255,255,0.02) 0 2px, transparent 2px 4px),
+    var(--ink);
+  position: relative;
+}
+.felt-banner::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: var(--paper-noise);
+  opacity: 0.06;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+/* ---- Scoreboard flip tile: physical segmented digit ---- */
+.flip-tile {
+  background: linear-gradient(180deg, #1a1a1a 0%, #0d0d0d 52%, #050505 52%, #141414 100%);
+  border: 3px solid var(--ink);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -2px 4px rgba(0,0,0,0.6), 3px 3px 0 0 var(--ink);
+  position: relative;
+}
+.flip-tile::before {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; top: 50%;
+  height: 1px;
+  background: rgba(0,0,0,0.7);
+  transform: translateY(-0.5px);
+}
+
+/* ---- Woven label tag ---- */
+.woven-tag {
+  background: repeating-linear-gradient(90deg, var(--bone) 0 2px, #EDE8D6 2px 4px);
+  border: 1px solid var(--ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}
