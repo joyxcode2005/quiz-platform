@@ -1,6 +1,7 @@
 import { supabase } from "../lib/supabase"
 import type { Session, User } from "@supabase/supabase-js"
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react"
+import { getUserProfile, type UserProfile } from "../services/users"
 
 interface AuthContextType {
     user: User | null
@@ -8,7 +9,7 @@ interface AuthContextType {
     loading: boolean
     signInWithGoogle: () => Promise<void>
     signOut: () => Promise<void>
-    profile: any
+    profile: UserProfile | null
 }
 
 
@@ -18,22 +19,19 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
 // Context function 
 export function AuthProvider({ children }: { children: ReactNode }) {
-    const [profile, setProfile] = useState<{ role: string; name: string } | null>(null)
+    const [profile, setProfile] = useState<UserProfile | null>(null)
     const [session, setSession] = useState<Session | null>(null)
     const [loading, setLoading] = useState(true)
 
-    useEffect(() =>{
-        if(!session?.user) {
+    useEffect(() => {
+        if (!session?.user) {
             setProfile(null)
-            return 
+            return
         }
 
-        supabase
-        .from('users')
-        .select('role, name')
-        .eq('id', session.user.id)
-        .single()
-        .then(({data}) => setProfile(data))
+        getUserProfile(session.user.id)
+            .then(setProfile)
+            .catch(() => setProfile(null))
     }, [session])
 
     useEffect(() => {

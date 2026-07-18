@@ -14,7 +14,7 @@ import { WeeklyLeaderboard } from "./pages/league/WeeklyLeaderboard";
 import { MatchResults } from "./pages/league/MatchResults";
 import { ReadSchedule } from "./pages/league/ReadSchedule";
 import { InterestToRead } from "./pages/league/InterestToRead";
-import { Profile } from "./pages/profile/Profile";
+import { Profile } from "./pages/ProfilePage";
 import { AuthCallback } from './pages/AuthCallback';
 
 export default function App() {

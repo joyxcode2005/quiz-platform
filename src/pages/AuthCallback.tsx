@@ -15,7 +15,7 @@ export const AuthCallback: React.FC = () => {
   }, [session, navigate]);
 
   return (
-    <div className="min-h-screen w-full flex flex-col items-center justify-center bg-[var(--bone)] bg-gray-100">
+    <div className="min-h-screen w-full flex flex-col items-center justify-center bg-gray-100">
       <Loader2 size={48} className="animate-spin text-[#FF6B00]" />
       <p className="mt-4 font-bold text-gray-600 font-data uppercase tracking-widest text-sm">
         Authenticating...
