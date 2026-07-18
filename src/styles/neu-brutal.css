@@ -1,0 +1,133 @@
+/* =========================================================================
+   NEU-BRUTAL — a second texture system, sitting alongside brutal-skeu.css.
+   Two vocabularies, deliberately alternated section-by-section:
+
+   1) NEUMORPHIC  — soft pastel panels, big radius, dual-direction soft shadow.
+      Use for sections that should feel calm, tactile, "pressable."
+   2) POSTER      — raw brutalist blocks, hard edges, halftone, torn bottom.
+      Use for sections that should hit hard: hero, section breaks, CTAs.
+
+   Import once, after brutal-skeu.css:
+     @import './styles/neu-brutal.css';
+   ========================================================================= */
+
+:root {
+  --neu-bg:     #EDEDF3;
+  --neu-blue:   #6FC7D9;
+  --neu-yellow: #F0C94A;
+  --neu-pink:   #F0A8C4;
+  --neu-green:  #8FCB7E;
+  --neu-coral:  #E8785A;
+  --neu-purple: #A78BD1;
+  --neu-shadow-dark:  rgba(163, 177, 198, 0.55);
+  --neu-shadow-light: rgba(255, 255, 255, 0.85);
+  --neu-radius: 28px;
+}
+
+/* ---------------------------- NEUMORPHIC ---------------------------- */
+
+.neu-section {
+  background: var(--neu-bg);
+  border-radius: 32px;
+  position: relative;
+}
+
+.neu-panel {
+  border-radius: var(--neu-radius);
+  border: none;
+  box-shadow: 8px 8px 18px var(--neu-shadow-dark), -8px -8px 18px var(--neu-shadow-light);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+.neu-panel:hover {
+  box-shadow: 10px 10px 22px var(--neu-shadow-dark), -10px -10px 22px var(--neu-shadow-light);
+  transform: translateY(-2px);
+}
+
+/* Pressed / inset variant — for search bars, active states */
+.neu-inset {
+  border-radius: var(--neu-radius);
+  border: none;
+  box-shadow: inset 5px 5px 10px var(--neu-shadow-dark), inset -5px -5px 10px var(--neu-shadow-light);
+  background: var(--neu-bg);
+}
+
+/* Pill button with a soft popped-out puck */
+.neu-pill {
+  border-radius: 999px;
+  border: none;
+  box-shadow: 6px 6px 14px var(--neu-shadow-dark), -6px -6px 14px var(--neu-shadow-light);
+}
+.neu-pill:active {
+  box-shadow: inset 4px 4px 8px rgba(0,0,0,0.15), inset -4px -4px 8px rgba(255,255,255,0.4);
+}
+
+/* Little chat/notif bubble puck, per the reference kit */
+.neu-puck {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 4px 4px 10px var(--neu-shadow-dark), -4px -4px 10px var(--neu-shadow-light);
+}
+
+/* ------------------------------ POSTER ------------------------------ */
+
+.poster-block {
+  background: var(--ink);
+  color: var(--bone);
+  position: relative;
+  overflow: hidden;
+}
+
+.poster-type {
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 0.85;
+}
+
+/* Halftone dot field — screenprint texture for poster sections */
+.halftone {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, var(--signal) 1.6px, transparent 1.8px);
+  background-size: 10px 10px;
+  opacity: 0.25;
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+/* Torn paper edge at the bottom of a poster block */
+.torn-bottom {
+  clip-path: polygon(
+    0% 0%, 100% 0%, 100% 94%,
+    96% 100%, 90% 93%, 84% 100%, 78% 92%, 72% 100%,
+    66% 93%, 60% 100%, 54% 92%, 48% 100%, 42% 93%,
+    36% 100%, 30% 92%, 24% 100%, 18% 93%, 12% 100%,
+    6% 92%, 0% 100%
+  );
+}
+
+/* Oversized circle motif behind poster type, like the BRUTAL poster reference */
+.poster-orb {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--signal);
+  filter: blur(0px);
+}
+
+.poster-sticker {
+  background: var(--signal);
+  color: var(--bone);
+  font-weight: 900;
+  text-transform: uppercase;
+  transform: rotate(-4deg);
+  display: inline-block;
+  border: 3px solid var(--ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .neu-panel { transition: none; }
+}

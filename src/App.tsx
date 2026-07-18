@@ -11,11 +11,13 @@ import AdminPanel from "./pages/AdminPanel";
 import { Home } from "./pages/Home";
 import { LeagueMenu } from "./pages/league/LeagueMenu";
 import { WeeklyLeaderboard } from "./pages/league/WeeklyLeaderboard";
+import { SeasonalLeaderboard } from "./pages/league/SeasonalLeaderboard";
 import { MatchResults } from "./pages/league/MatchResults";
 import { ReadSchedule } from "./pages/league/ReadSchedule";
 import { InterestToRead } from "./pages/league/InterestToRead";
 import { Profile } from "./pages/ProfilePage";
 import { AuthCallback } from './pages/AuthCallback';
+import AccountSettingsPage from "./pages/AccountSettingsPage";
 
 export default function App() {
   return (
@@ -23,7 +25,7 @@ export default function App() {
       <AuthProvider>
         <AppProvider>
           <Routes>
-           
+
             <Route path="/login" element={<LoginPage />} />
             <Route path="/unauthorized" element={<UnauthorizedPage />} />
             <Route path="/" element={<RootRedirect />} />
@@ -39,7 +41,7 @@ export default function App() {
 
             {/* --- Quiz product UI - new, additive, gated behind login --- */}
             <Route path="/auth/callback" element={<AuthCallback />} />
-            
+
             <Route
               path="/home"
               element={
@@ -53,6 +55,14 @@ export default function App() {
               element={
                 <ProtectedRoute>
                   <LeagueMenu />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/league/season"
+              element={
+                <ProtectedRoute>
+                  <SeasonalLeaderboard />
                 </ProtectedRoute>
               }
             />
@@ -95,6 +105,17 @@ export default function App() {
                   <Profile />
                 </ProtectedRoute>
               }
+            />
+
+
+            <Route
+              path="/account-settings"
+              element={
+                <ProtectedRoute>
+                  <AccountSettingsPage />
+                </ProtectedRoute>
+              }
+
             />
 
             {/* Catch-all route: Redirects any unknown URLs (like /dashboard) safely back to root */}

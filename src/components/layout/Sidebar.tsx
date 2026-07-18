@@ -7,31 +7,33 @@ export const Sidebar: React.FC = () => {
   const navigate = useNavigate();
 
   const navItems = [
-    { path: '/home', label: 'Home', icon: Home },
-    { path: '/league', label: 'Leagues', icon: Trophy },
-    { path: '/profile', label: 'Profile', icon: User },
+    { path: '/home', label: 'Home', icon: Home, bg: 'var(--neu-pink)' },
+    { path: '/league', label: 'Leagues', icon: Trophy, bg: 'var(--neu-yellow)' },
+    { path: '/profile', label: 'Profile', icon: User, bg: 'var(--neu-blue)' },
   ];
 
   return (
-    <aside className="hidden md:flex flex-col fixed left-0 top-0 h-full w-20 lg:w-64 bg-white border-r-4 border-[var(--ink)] z-40 py-6">
-      <div className="stamp text-[var(--ink)] font-data font-black text-sm px-3 py-1.5 bg-white mb-10 mx-auto">
-        QA
+    <aside className="hidden md:flex flex-col fixed left-0 top-0 h-full w-20 lg:w-64 bg-[var(--neu-bg)] z-40 py-6">
+      <div className="neu-puck bg-white mx-auto mb-10 w-12 h-12">
+        <span className="font-data font-black text-sm text-[var(--ink)]">QA</span>
       </div>
-      <nav className="flex flex-col gap-2 w-full px-3">
+      
+      <nav className="flex flex-col gap-4 w-full px-4 lg:px-6">
         {navItems.map((item) => {
-          const isActive =
-            location.pathname === item.path ||
-            location.pathname.startsWith(item.path);
+          const isActive = location.pathname.startsWith(item.path);
           return (
             <button
               key={item.path}
               onClick={() => navigate(item.path)}
-              className={`flex items-center gap-3 px-3 py-3 font-bold uppercase text-sm tracking-wide transition-colors brutal-border justify-center lg:justify-start ${
-                isActive ? 'bg-[var(--signal)] text-white' : 'bg-white hover:bg-[var(--bone)]'
+              className={`flex items-center gap-4 px-4 py-3 font-bold uppercase text-sm tracking-wide transition-all justify-center lg:justify-start ${
+                isActive ? 'neu-panel' : 'hover:bg-white/50 rounded-2xl'
               }`}
+              style={{ background: isActive ? item.bg : 'transparent' }}
             >
-              <item.icon size={20} />
-              <span className="hidden lg:inline">{item.label}</span>
+              <item.icon size={20} className={isActive ? 'text-[var(--ink)]' : 'text-[var(--ink)]/50'} />
+              <span className={`hidden lg:inline ${isActive ? 'text-[var(--ink)]' : 'text-[var(--ink)]/50'}`}>
+                {item.label}
+              </span>
             </button>
           );
         })}

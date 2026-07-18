@@ -1,74 +1,129 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import { PageLayout } from '../../components/layout/PageLayout';
-import { Button } from '../../components/ui/Button';
-import { Clock, Info } from 'lucide-react';
-import type { Match } from '../../types';
+import { Clock, Info, HandMetal } from 'lucide-react';
+import { staggerContainer, staggerItem } from '../../lib/animations';
+import { useTilt } from '../../hooks/useTilt';
+
+interface OpenMatch {
+  id: string;
+  gameNo: string;
+  date: string;
+  time: string;
+  teams: string[];
+}
+
+const OpenCard: React.FC<{ match: OpenMatch }> = ({ match }) => {
+  const { ref, containerStyle, motionStyle, handlers } = useTilt({ max: 4, shadowReach: 8 });
+  
+  return (
+    <motion.div variants={staggerItem} style={containerStyle}>
+      <motion.div
+        ref={ref}
+        {...handlers}
+        style={motionStyle}
+        className="neu-panel bg-white flex flex-col p-5 gap-5 relative overflow-hidden"
+      >
+        {/* Subtle paper grain texture overlay */}
+        <div className="grain pointer-events-none" />
+
+        {/* Card Header */}
+        <div className="flex items-center justify-between border-b-2 border-dashed border-black/10 pb-4 relative z-10">
+          <div className="flex items-center gap-3">
+            <div className="neu-puck w-auto h-8 px-3 bg-[var(--ink)] text-[var(--bone)] font-data font-black text-xs">
+              G-{match.gameNo}
+            </div>
+            <div className="flex items-center gap-1 text-[10px] font-data font-black uppercase tracking-widest text-[var(--neu-blue)]">
+              <Clock size={14} strokeWidth={3} />
+              {match.date} &middot; {match.time}
+            </div>
+          </div>
+          <span className="font-data font-black text-[9px] uppercase tracking-widest text-[var(--neu-blue)] bg-[var(--neu-bg)] px-2 py-1 rounded-full shadow-inner border border-[var(--neu-blue)]/20">
+            Needed
+          </span>
+        </div>
+
+        {/* Teams List (Inset Area) */}
+        <div className="neu-inset bg-[var(--neu-bg)] flex flex-col p-4 gap-3 relative z-10">
+          {match.teams.map((team, idx) => (
+            <div key={idx} className="flex items-center gap-3">
+              <div className="neu-puck w-7 h-7 shrink-0 bg-white text-[var(--ink)]/40 font-data font-black text-[10px]">
+                {idx + 1}
+              </div>
+              <span className="font-black text-sm uppercase leading-tight truncate w-full text-[var(--ink)]">
+                {team}
+              </span>
+            </div>
+          ))}
+        </div>
+
+        {/* Action Button */}
+        <button className="neu-pill w-full py-4 mt-1 bg-[var(--neu-blue)] text-white font-black uppercase text-xs tracking-widest flex items-center justify-center gap-2 relative z-10 transition-transform active:scale-[0.98]">
+          <HandMetal size={16} strokeWidth={2.5} />
+          Mark as Interested
+        </button>
+      </motion.div>
+    </motion.div>
+  );
+};
 
 export const InterestToRead: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'open' | 'myinterests'>('open');
 
-  const matches: Match[] = [
-    { id: '1', time: '11:30 PM', teamA: 'To B or not to BVM', teamB: 'VOC' },
-    { id: '2', time: '8:00 PM', teamA: 'Somewhat Interested', teamB: 'The IP Team' },
-    { id: '3', time: '10:00 PM', teamA: 'Lob boblaw', teamB: 'The BA of Algiers' },
-    { id: '4', time: '9:00 PM', teamA: 'Idly watching Enthusiasts', teamB: 'Whiskey Kaapi' },
+  const matches: OpenMatch[] = [
+    { id: '1', gameNo: '1006', date: '18-Jul', time: '9:00 PM', teams: ['Smash Brothers', 'Khoon Zeher Tezaab', 'Double Ka Meetha'] },
+    { id: '2', gameNo: '1008', date: '19-Jul', time: '10:00 AM', teams: ['FRSS', 'Ruby Bridges of...', 'Brains Like Berkeley'] }
   ];
 
   return (
     <PageLayout>
-      <div className="flex border-b-[3px] border-[var(--ink)]">
-        <button
-          className={`flex-1 py-4 font-black uppercase text-sm tracking-wide text-center border-r-[3px] border-[var(--ink)] transition-colors ${
-            activeTab === 'open' ? 'bg-[var(--signal)] text-white' : 'bg-white hover:bg-[var(--bone)]'
-          }`}
-          onClick={() => setActiveTab('open')}
-        >
-          Open
-        </button>
-        <button
-          className={`flex-1 py-4 font-black uppercase text-sm tracking-wide text-center transition-colors ${
-            activeTab === 'myinterests' ? 'bg-[var(--signal)] text-white' : 'bg-white hover:bg-[var(--bone)]'
-          }`}
-          onClick={() => setActiveTab('myinterests')}
-        >
-          My Interests
-        </button>
+      {/* Sticky Top Tab Switcher (Neumorphic Pill Container) */}
+      <div className="flex justify-center pt-6 pb-2 sticky top-0 z-40 bg-[var(--neu-bg)]/90 backdrop-blur-md px-4">
+        <div className="neu-inset flex p-1.5 rounded-full w-full max-w-md mx-auto bg-white/50">
+          {(['open', 'myinterests'] as const).map((tab) => (
+            <button
+              key={tab}
+              className={`flex-1 py-3.5 px-4 rounded-full font-black uppercase text-xs tracking-widest transition-all ${
+                activeTab === tab 
+                  ? 'neu-pill bg-[var(--neu-blue)] text-white' 
+                  : 'text-[var(--ink)]/50 hover:text-[var(--ink)]'
+              }`}
+              onClick={() => setActiveTab(tab)}
+            >
+              {tab === 'open' ? 'Open Games' : 'My Interests'}
+            </button>
+          ))}
+        </div>
       </div>
 
-      <div className="p-4 space-y-6">
-        <div className="bg-[var(--bone)] brutal-border p-3 flex gap-3 text-sm font-bold items-start">
-          <Info className="text-[var(--signal)] shrink-0 mt-0.5" size={20} />
-          <p>Express interest to read games that have no assigned reader yet.</p>
-        </div>
+      <motion.div 
+        variants={staggerContainer} 
+        initial="hidden" 
+        animate="show" 
+        className="p-4 md:p-8 space-y-8 max-w-3xl mx-auto mt-2"
+      >
+        {/* Soft Informational Banner */}
+        <motion.div variants={staggerItem} className="neu-panel bg-white p-5 md:p-6 flex gap-4 items-start border-l-[6px] border-l-[var(--neu-blue)]">
+          <div className="neu-puck bg-[var(--neu-bg)] shrink-0 w-12 h-12">
+            <Info className="text-[var(--neu-blue)]" size={24} strokeWidth={2.5} />
+          </div>
+          <p className="font-data text-xs md:text-sm font-bold uppercase tracking-widest leading-relaxed mt-0.5 text-[var(--ink)]/70">
+            Express interest to read games that currently display 'Needed' in the draws sheet.
+          </p>
+        </motion.div>
 
-        <div>
-          <h3 className="font-black uppercase text-sm tracking-wide mb-4">Open Games (Need Readers)</h3>
-          <div className="space-y-4">
+        {/* Section Title & Card Grid */}
+        <div className="neu-section bg-transparent pt-4">
+          <h3 className="font-black uppercase text-lg tracking-widest mb-6 px-2 text-[var(--ink)]/80">
+            Games Needing Readers
+          </h3>
+          <div className="space-y-6">
             {matches.map((match) => (
-              <div key={match.id} className="ticket-notch bg-white brutal-border brutal-shadow-sm flex flex-row items-center justify-between p-3">
-                <div className="flex flex-col gap-2 w-1/4">
-                  <div className="flex items-center gap-1 text-xs font-data font-bold text-black/60">
-                    <Clock size={14} />
-                    {match.time}
-                  </div>
-                </div>
-
-                <div className="flex flex-col gap-1 items-center w-1/2 text-center px-2">
-                  <span className="font-bold text-sm truncate w-full">{match.teamA}</span>
-                  <span className="text-xs font-black text-[var(--signal)]">VS</span>
-                  <span className="font-bold text-sm truncate w-full">{match.teamB}</span>
-                </div>
-
-                <div className="w-1/4 flex justify-end">
-                  <Button variant="outline" className="px-2 py-2 text-xs whitespace-nowrap">
-                    Interested
-                  </Button>
-                </div>
-              </div>
+              <OpenCard key={match.id} match={match} />
             ))}
           </div>
         </div>
-      </div>
+      </motion.div>
     </PageLayout>
   );
 };

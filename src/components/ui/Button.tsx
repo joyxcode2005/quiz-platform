@@ -1,4 +1,6 @@
 import React, { type ButtonHTMLAttributes } from 'react';
+import { motion } from 'framer-motion';
+import { tapTransition } from '../../lib/animations';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
@@ -13,7 +15,7 @@ export const Button: React.FC<ButtonProps> = ({
   ...props
 }) => {
   const baseStyle =
-    "font-bold uppercase tracking-wide py-3 px-6 text-center transition-colors flex justify-center items-center rounded-none brutal-border brutal-press brutal-shadow-sm";
+    "font-bold uppercase tracking-wide py-3 px-6 text-center transition-colors flex justify-center items-center rounded-none brutal-border brutal-shadow-sm relative z-10";
 
   const variants = {
     primary: 'bg-[var(--signal)] text-white hover:bg-[var(--ink)]',
@@ -23,11 +25,12 @@ export const Button: React.FC<ButtonProps> = ({
   };
 
   return (
-    <button
+    <motion.button
+      whileTap={{ x: 3, y: 3, boxShadow: '0px 0px 0px 0px var(--ink)', transition: tapTransition }}
       className={`${baseStyle} ${variants[variant]} ${fullWidth ? 'w-full' : ''} ${className}`}
       {...props}
     >
       {children}
-    </button>
+    </motion.button>
   );
 };

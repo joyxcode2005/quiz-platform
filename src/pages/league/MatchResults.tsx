@@ -1,91 +1,94 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import { PageLayout } from '../../components/layout/PageLayout';
-import { Clock } from 'lucide-react';
-import type { Match } from '../../types';
+import { Clock, Trophy } from 'lucide-react';
+import { staggerContainer, staggerItem } from '../../lib/animations';
+
+interface ThreeWayMatch {
+  id: string;
+  gameNo: string;
+  time: string;
+  teamA: { name: string; score: number };
+  teamB: { name: string; score: number };
+  teamC: { name: string; score: number };
+}
+
+const MatchCard: React.FC<{ match: ThreeWayMatch; bg: string }> = ({ match, bg }) => {
+  const teams = [match.teamA, match.teamB, match.teamC];
+  const winner = teams.reduce((prev, current) => (prev.score > current.score ? prev : current));
+
+  return (
+    <motion.div variants={staggerItem} className="neu-panel relative overflow-hidden" style={{ background: bg }}>
+      <div className="flex items-center justify-between gap-2 px-4 py-3">
+        <div className="flex items-center gap-3">
+          <div className="font-data font-black text-xs bg-[var(--ink)] text-white px-2 py-1 rounded-md">
+            G-{match.gameNo}
+          </div>
+          <div className="flex items-center gap-1 text-xs font-data font-black uppercase tracking-widest text-[var(--ink)]/60">
+            <Clock size={14} strokeWidth={3} />
+            {match.time}
+          </div>
+        </div>
+        <div className="neu-puck bg-white shrink-0">
+          <Trophy size={14} className="text-[var(--ink)]" strokeWidth={2.5} />
+        </div>
+      </div>
+
+      <div className="flex flex-col gap-2 px-4 pb-4">
+        {teams.map((team, idx) => {
+          const isWinner = team.name === winner.name;
+          return (
+            <div key={idx} className={`flex justify-between items-center px-3 py-3 rounded-2xl ${isWinner ? 'bg-white' : 'bg-white/40'}`}>
+              <span className="font-black uppercase text-sm w-2/3 text-[var(--ink)]">{team.name}</span>
+              <span className={`font-data font-black text-xl text-right ${isWinner ? 'text-[var(--signal)]' : 'text-[var(--ink)]/50'}`}>
+                {team.score}
+              </span>
+            </div>
+          );
+        })}
+      </div>
+
+      <div className="text-center font-black uppercase text-[10px] py-2.5 bg-[var(--ink)] text-white tracking-widest">
+        Winner: <span className="text-[var(--signal)]">{winner.name}</span>
+      </div>
+    </motion.div>
+  );
+};
 
 export const MatchResults: React.FC = () => {
-  const matches: Match[] = [
+  const matches: ThreeWayMatch[] = [
     {
-      id: '1',
-      time: '9:00 PM',
-      teamA: 'From Coast to Midwest',
-      teamB: 'No Material Misstatement',
-      scoreA: 1023,
-      scoreB: 1106,
-      winner: 'No Material Misstatement',
+      id: '1', gameNo: '1001', time: '8:00 PM',
+      teamA: { name: 'Above Par', score: 45 },
+      teamB: { name: 'Sticky Bong Pudding', score: 30 },
+      teamC: { name: 'Smashin\' Bumpkins', score: 25 },
     },
     {
-      id: '2',
-      time: '9:00 PM',
-      teamA: 'Nightmare on LLM Stree',
-      teamB: 'Area Boys',
-      scoreA: 1018,
-      scoreB: 1020,
-      winner: 'Area Boys',
-    },
-    {
-      id: '3',
-      time: '10:00 PM',
-      teamA: 'Fafda, Feni, Feluda',
-      teamB: 'To B or not to BVM',
-      scoreA: 1112,
-      scoreB: 1013,
-      winner: 'Fafda, Feni, Feluda',
-    },
-    {
-      id: '4',
-      time: '7:00 PM',
-      teamA: 'Speeding Bumpkins',
-      teamB: 'Green Light',
-      scoreA: 1106,
-      scoreB: 1105,
-      winner: 'Speeding Bumpkins',
-    },
+      id: '2', gameNo: '1002', time: '9:00 PM',
+      teamA: { name: 'NPAK', score: 50 },
+      teamB: { name: 'Potato Eaters', score: 55 },
+      teamC: { name: 'The BA of Algiers', score: 20 },
+    }
   ];
+
+  const bgs = ['var(--neu-blue)', 'var(--neu-yellow)'];
 
   return (
     <PageLayout>
-      <div className="max-w-4xl mx-auto">
-        <div className="flex justify-center py-4 border-b-[3px] border-[var(--ink)] bg-[var(--bone)] sticky top-0 z-10">
-          <select className="font-bold font-data text-center appearance-none bg-transparent outline-none cursor-pointer text-sm">
-            <option>WEEK: JUL 14 &ndash; JUL 20 &#9662;</option>
-          </select>
-        </div>
-
-        <div className="p-4 md:p-8 grid md:grid-cols-2 gap-5">
-          {matches.map((match) => (
-            <div key={match.id} className="ticket-notch bg-white brutal-border brutal-shadow-sm relative">
-              <div className="flex items-center justify-between gap-2 border-b-[3px] border-dashed border-black/20 px-4 py-2">
-                <div className="flex items-center gap-2 text-xs font-data font-bold text-black/60">
-                  <Clock size={14} />
-                  {match.time}
-                </div>
-                <div className="relative">
-                  <div className="glow-signal w-14 h-14 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
-                  <div className="stamp relative text-[var(--signal)] text-[10px] font-data font-bold uppercase tracking-widest px-2 py-0.5 bg-white">
-                    Winner
-                  </div>
-                </div>
-              </div>
-
-              {/* Frosted inset panel behind the score readout - the soft light, hard frame idea */}
-              <div className="relative mx-4 mt-4 glass-panel brutal-border">
-                <div className="flex justify-between items-center gap-3 p-4">
-                  <div className="w-1/3 text-left font-bold text-sm leading-tight">{match.teamA}</div>
-                  <div className="w-1/3 text-center font-data font-black text-xl whitespace-nowrap">
-                    {match.scoreA} <span className="text-black/30">&ndash;</span> {match.scoreB}
-                  </div>
-                  <div className="w-1/3 text-right font-bold text-sm leading-tight">{match.teamB}</div>
-                </div>
-              </div>
-
-              <div className="text-center font-bold text-sm py-2 mt-4 border-t-[3px] border-[var(--ink)] bg-[var(--signal-soft)]">
-                {match.winner}
-              </div>
-            </div>
-          ))}
-        </div>
+      {/* ---- POSTER (raw) — week select ---- */}
+      <div className="poster-block flex justify-center py-4 relative overflow-hidden sticky top-0 z-50">
+        <div className="halftone opacity-40" />
+        <select className="relative z-10 font-bold font-data text-center appearance-none bg-transparent outline-none cursor-pointer text-sm uppercase tracking-widest text-white">
+          <option className="text-black">WEEK 1: JUL 14 &ndash; JUL 20 &#9662;</option>
+        </select>
       </div>
+
+      {/* ---- NEUMORPHIC (soft) — match cards ---- */}
+      <motion.div variants={staggerContainer} initial="hidden" animate="show" className="neu-section p-4 md:p-8 space-y-6 max-w-4xl mx-auto">
+        {matches.map((match, i) => (
+          <MatchCard key={match.id} match={match} bg={bgs[i % bgs.length]} />
+        ))}
+      </motion.div>
     </PageLayout>
   );
 };

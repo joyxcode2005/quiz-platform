@@ -7,12 +7,19 @@ export interface UserProfile {
     role: 'Reader' | 'Player' | 'Admin'
     phone: string | null
     country: string | null
+    avatar_url: string | undefined
     email_verified: boolean
     is_active: boolean
     created_at: string
 }
 
-const PROFILE_COLUMNS = 'id, name, email, role, phone, country, email_verified, is_active, created_at'
+export interface UpdateUserProfileInput {
+    name?: string
+    phone?: string | null
+    country?: string | null
+}
+
+const PROFILE_COLUMNS = 'id, name, email, role, phone, country, avatar_url, email_verified, is_active, created_at'
 
 // Fetch a single user's own profile
 export async function getUserProfile(userId: string): Promise<UserProfile> {
@@ -22,6 +29,18 @@ export async function getUserProfile(userId: string): Promise<UserProfile> {
         .eq('id', userId)
         .single()
 
+
+    if (error) throw error
+    return data
+}
+
+export async function updateUserProfile(userId: string, updates: UpdateUserProfileInput): Promise<UserProfile> {
+    const { data, error } = await supabase
+        .from('users')
+        .update(updates)
+        .eq('id', userId)
+        .select(PROFILE_COLUMNS)
+        .single()
 
     if (error) throw error
     return data

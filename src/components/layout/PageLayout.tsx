@@ -1,17 +1,31 @@
 import React from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useLocation } from 'react-router-dom';
 import { Header } from './Header';
 import { BottomNavigation } from './BottomNavigation';
-import { Sidebar } from './Sidebar';
+import { pageVariants } from '../../lib/animations';
 
 export const PageLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const location = useLocation();
+
   return (
-    <div className="w-full min-h-screen bg-white">
-      <Sidebar />
-      <div className="md:ml-20 lg:ml-64 flex flex-col min-h-screen">
-        <Header />
-        <main className="flex-1 pb-24 md:pb-12">
+    <div className="w-full bg-[var(--bone)] min-h-screen relative flex flex-col">
+      <Header />
+      <AnimatePresence mode="wait">
+        <motion.main 
+          key={location.pathname}
+          variants={pageVariants}
+          initial="initial"
+          animate="animate"
+          exit="exit"
+          className="flex-1 w-full pb-24 md:pb-8"
+        >
           {children}
-        </main>
+        </motion.main>
+      </AnimatePresence>
+      
+      {/* Hides the mobile bottom nav on desktop views */}
+      <div className="block md:hidden">
         <BottomNavigation />
       </div>
     </div>
