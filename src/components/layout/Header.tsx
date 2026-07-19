@@ -13,9 +13,11 @@ export const Header: React.FC = () => {
     if (location.pathname.includes('/league/results')) return 'Match Results';
     if (location.pathname.includes('/league/read/schedule')) return 'Read Schedule';
     if (location.pathname.includes('/league/read/open')) return 'Open Games';
-    if (location.pathname.includes('/league')) return 'Draw League';
+    if (location.pathname.includes('/league/draws')) return 'Weekly Draws';
+    if (location.pathname.includes('/league/season')) return 'Season Standings';
+    if (location.pathname.includes('/league')) return 'League Menu';
     if (location.pathname.includes('/profile')) return 'Profile';
-    return 'Quiz Arena';
+    return 'FLQL';
   };
 
   const NavButton = ({ onClick, children }: { onClick?: () => void, children: React.ReactNode }) => (

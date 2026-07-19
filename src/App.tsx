@@ -10,6 +10,7 @@ import AdminPanel from "./pages/AdminPanel";
 
 import { Home } from "./pages/Home";
 import { LeagueMenu } from "./pages/league/LeagueMenu";
+import { Draws } from "./pages/league/Draws";
 import { WeeklyLeaderboard } from "./pages/league/WeeklyLeaderboard";
 import { SeasonalLeaderboard } from "./pages/league/SeasonalLeaderboard";
 import { MatchResults } from "./pages/league/MatchResults";
@@ -55,6 +56,14 @@ export default function App() {
               element={
                 <ProtectedRoute>
                   <LeagueMenu />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/league/draws"
+              element={
+                <ProtectedRoute>
+                  <Draws />
                 </ProtectedRoute>
               }
             />
