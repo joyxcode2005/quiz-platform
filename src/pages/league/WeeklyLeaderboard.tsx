@@ -65,7 +65,7 @@ const TrendIndicator: React.FC<{ trend: string, val: number }> = ({ trend, val }
 };
 
 export const WeeklyLeaderboard: React.FC = () => {
-  const [activeTrack, setActiveTrack] = useState<ScoringTrack>('smashdown');
+  const [activeTrack, setActiveTrack] = useState<ScoringTrack>('india');
   const [activeWeek, setActiveWeek] = useState<number>(1);
 
   const leaderboardData = useMemo(() => {
