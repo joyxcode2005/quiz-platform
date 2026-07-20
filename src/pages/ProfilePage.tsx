@@ -43,62 +43,6 @@ export const Profile: React.FC = () => {
         <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center shrink-0 ${isDanger ? 'bg-[var(--neu-coral)]/10' : 'bg-[#F4F4F5]'}`}>
           <Icon size={18} className={isDanger ? 'text-[var(--neu-coral)]' : 'text-[var(--ink)]'} strokeWidth={2.5} />
         </div>
-<<<<<<< HEAD:src/pages/ProfilePage.tsx
-        <span className={`font-black uppercase text-sm tracking-wide ${isDanger ? 'text-(--neu-coral)' : 'text-(--ink)'}`}>
-          {title}
-        </span>
-      </div>
-      {!isDanger && <ChevronRight size={22} strokeWidth={3} className="text-(--ink)/30" />}
-    </motion.button>
-  );
-
-  const displayName =
-    profile?.name ||
-    user?.user_metadata?.full_name ||
-    user?.user_metadata?.name ||
-    user?.email?.split('@')[0] ||
-    'Unknown Player';
-
-  return (
-    <PageLayout>
-      <motion.div
-        variants={staggerContainer}
-        initial="hidden"
-        animate="show"
-        className="p-4 md:p-8 flex flex-col gap-6 max-w-4xl mx-auto"
-      >
-        {/* HERO: Poster style to hit hard */}
-        <motion.div variants={staggerItem}>
-          <div className="poster-block torn-bottom flex flex-col items-center justify-center py-12 px-4 relative">
-            <div className="halftone" />
-            <div className="poster-orb w-64 h-64 -top-10 -left-10 opacity-60" />
-
-            <div className="relative z-10 w-20 h-20 mb-4 rounded-full overflow-hidden bg-white flex items-center justify-center">
-              {profile?.avatar_url ? (
-                <img
-                  src={profile.avatar_url}
-                  alt={profile.name}
-                  referrerPolicy="no-referrer"
-                  className="w-full h-full object-cover"
-                />
-              ) : (
-                <UserIcon size={36} className="text-black/40" />
-              )}
-            </div>
-
-            <h2 className="relative z-10 poster-type text-3xl md:text-4xl text-(--bone) text-center">
-              {displayName}
-            </h2>
-
-            <p className="relative z-10 text-xs text-(--bone)/70 font-data mt-1">
-              {profile?.email}
-            </p>
-
-            <div className="relative z-10 flex items-center gap-2 mt-4">
-              <div className="poster-sticker text-xs px-4 py-1.5">
-                {profile?.role}
-              </div>
-=======
         <span className={`font-black uppercase text-xs sm:text-sm tracking-widest ${isDanger ? 'text-[var(--neu-coral)]' : 'text-[var(--ink)]'}`}>
           {title}
         </span>
@@ -153,7 +97,6 @@ export const Profile: React.FC = () => {
               style={{ background: '#FF4111' }}
             >
               {profile?.role || 'PLAYER'}
->>>>>>> ad542e5e72252d54c5b4cf88f73d733e5b3ae62a:src/pages/profile/Profile.tsx
             </div>
 
             {profile?.created_at && (
@@ -164,22 +107,6 @@ export const Profile: React.FC = () => {
           </div>
         </motion.div>
 
-<<<<<<< HEAD:src/pages/ProfilePage.tsx
-        {/* STATS: Neumorphic style for tactile data */}
-        {/* <motion.div variants={staggerItem} className="grid grid-cols-2 gap-5 mt-2">
-          <div className="neu-panel flex flex-col items-center justify-center p-6 bg-white">
-            <span className="font-black text-5xl text-[var(--neu-blue)]">
-              {profile?.gamesPlayed || profile?.games_played || 0}
-            </span>
-            <span className="text-[10px] font-black font-data uppercase tracking-widest text-[var(--ink)]/50 mt-2 text-center leading-tight">
-              Games<br />Played
-            </span>
-          </div>
-
-          <div className="grid grid-rows-2 gap-5">
-            <div className="neu-panel flex flex-col items-center justify-center p-3 bg-white">
-              <span className="font-black text-2xl text-[var(--ink)]">
-=======
         {/* ============================================================
             STATS: Tactile Data Blocks
            ============================================================ */}
@@ -199,22 +126,15 @@ export const Profile: React.FC = () => {
           <div className="grid grid-rows-2 gap-4">
             <div className="neu-panel bg-white flex flex-col items-center justify-center p-4" style={{ borderRadius: '28px' }}>
               <span className="font-black text-3xl sm:text-4xl text-[var(--ink)] mb-1">
->>>>>>> ad542e5e72252d54c5b4cf88f73d733e5b3ae62a:src/pages/profile/Profile.tsx
                 {profile?.gamesRead || profile?.games_read || 0}
               </span>
               <span className="text-[8px] sm:text-[9px] font-black font-data uppercase tracking-[0.2em] text-[#9CA3AF] text-center">
                 GAMES READ
               </span>
             </div>
-<<<<<<< HEAD:src/pages/ProfilePage.tsx
-
-            <div className="neu-panel flex flex-col items-center justify-center p-3 bg-white">
-              <span className="font-black text-2xl text-[var(--ink)]">
-=======
             
             <div className="neu-panel bg-white flex flex-col items-center justify-center p-4" style={{ borderRadius: '28px' }}>
               <span className="font-black text-3xl sm:text-4xl text-[var(--ink)] mb-1">
->>>>>>> ad542e5e72252d54c5b4cf88f73d733e5b3ae62a:src/pages/profile/Profile.tsx
                 {profile?.interestsSent || profile?.interests_sent || 0}
               </span>
               <span className="text-[8px] sm:text-[9px] font-black font-data uppercase tracking-[0.2em] text-[#9CA3AF] text-center">
@@ -222,12 +142,8 @@ export const Profile: React.FC = () => {
               </span>
             </div>
           </div>
-<<<<<<< HEAD:src/pages/ProfilePage.tsx
-        </motion.div> */}
-=======
 
         </motion.div>
->>>>>>> ad542e5e72252d54c5b4cf88f73d733e5b3ae62a:src/pages/profile/Profile.tsx
 
         {/* ============================================================
             MENU: Soft Neumorphic Pillars
