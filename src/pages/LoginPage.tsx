@@ -157,7 +157,7 @@ const LoginPage = () => {
                     type="button"
                     onClick={handleGoogleLogin}
                     disabled={googleLoading || loading}
-                    className="neu-panel w-full flex items-center justify-center gap-3 bg-white text-[var(--ink)] py-3.5 font-bold uppercase tracking-wide text-sm"
+                    className="neu-panel w-full flex items-center justify-center gap-3 bg-white text-[var(--ink)] py-3.5 font-bold uppercase tracking-wide text-sm cursor-pointer"
                   >
                     {googleLoading ? (
                       <Loader2 size={18} className="animate-spin" />

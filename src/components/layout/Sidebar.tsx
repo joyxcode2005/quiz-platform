@@ -15,7 +15,7 @@ export const Sidebar: React.FC = () => {
   ];
 
   return (
-    <aside className="hidden md:flex flex-col sticky top-0 h-screen w-20 lg:w-64 felt-banner border-r-[3px] border-[var(--ink)] z-40 overflow-hidden shrink-0">
+    <aside className="hidden md:flex flex-col h-full w-20 lg:w-64 felt-banner border-r-[3px] border-[var(--ink)] z-40 overflow-hidden shrink-0 relative">
       {/* Brand Ambient Glow */}
       <div className="absolute -top-20 -left-20 w-72 h-72 bg-[var(--signal)]/30 blur-[70px] rounded-full pointer-events-none" />
 

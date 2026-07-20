@@ -10,14 +10,14 @@ export const PageLayout: React.FC<{ children: React.ReactNode }> = ({ children }
   const location = useLocation();
 
   return (
-    <div className="w-full bg-[var(--bone)] min-h-screen relative flex">
+    // Outer container locked to exactly the screen size, preventing body scroll
+    <div className="flex h-dvh w-full bg-(--bone) overflow-hidden">
+      
+      {/* Sidebar sits here naturally, never scrolling */}
       <Sidebar />
 
-      {/* 
-        FIXED: Removed the hardcoded margins (md:ml-20 lg:ml-64).
-        The layout is now structurally glued to the Sidebar. 
-      */}
-      <div className="flex-1 flex flex-col min-h-screen min-w-0">
+      {/* Main content takes the remaining space and handles its own vertical scrolling */}
+      <div className="flex-1 flex flex-col h-full overflow-y-auto overflow-x-hidden relative scroll-smooth">
         <Header />
         <AnimatePresence mode="wait">
           <motion.main
@@ -26,15 +26,16 @@ export const PageLayout: React.FC<{ children: React.ReactNode }> = ({ children }
             initial="initial"
             animate="animate"
             exit="exit"
-            className="flex-1 w-full pb-24 md:pb-8"
+            className="flex-1 w-full pb-24 md:pb-8 flex flex-col"
           >
             {children}
           </motion.main>
         </AnimatePresence>
+      </div>
 
-        <div className="block md:hidden">
-          <BottomNavigation />
-        </div>
+      {/* Mobile bottom navigation */}
+      <div className="block md:hidden fixed bottom-0 left-0 w-full z-50">
+        <BottomNavigation />
       </div>
     </div>
   );
