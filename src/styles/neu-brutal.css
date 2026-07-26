@@ -12,15 +12,15 @@
    ========================================================================= */
 
 :root {
-  --neu-bg:     #EDEDF3;
-  --neu-blue:   #6FC7D9;
-  --neu-yellow: #F0C94A;
-  --neu-pink:   #F0A8C4;
-  --neu-green:  #8FCB7E;
-  --neu-coral:  #E8785A;
-  --neu-purple: #A78BD1;
-  --neu-shadow-dark:  rgba(163, 177, 198, 0.55);
-  --neu-shadow-light: rgba(255, 255, 255, 0.85);
+  --neu-bg:     #FFFFFF;
+  --neu-blue:   #FF7A1A;
+  --neu-yellow: #FFC800;
+  --neu-pink:   #E8590C;
+  --neu-green:  #C9960C;
+  --neu-coral:  #FF4D1C;
+  --neu-purple: #161616;
+  --neu-shadow-dark:  rgba(0, 0, 0, 0.16);
+  --neu-shadow-light: rgba(255, 255, 255, 0.9);
   --neu-radius: 28px;
 }
 

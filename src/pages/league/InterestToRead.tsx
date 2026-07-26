@@ -29,14 +29,14 @@ const OpenCard: React.FC<{
             <div className="h-8 px-3 rounded-lg bg-[#1A1A1A] text-white font-data font-black text-[11px] shrink-0 shadow-inner flex items-center justify-center">
               G-{match.gameNo}
             </div>
-            <div className="flex items-center gap-1.5 text-[10px] font-data font-black uppercase tracking-widest text-[#2962FF] min-w-0 bg-[#2962FF]/10 px-2 py-1 rounded-md">
+            <div className="flex items-center gap-1.5 text-[10px] font-data font-black uppercase tracking-widest text-[#FF7A1A] min-w-0 bg-[#FF7A1A]/10 px-2 py-1 rounded-md">
               <Clock size={12} strokeWidth={3} className="shrink-0" />
               <span className="truncate">
                 {match.date ?? `Week ${match.week}`} {match.time ? `\u00b7 ${match.time}` : ''}
               </span>
             </div>
           </div>
-          <span className="font-data font-black text-[9px] uppercase tracking-widest text-[#E8785A] border border-[#E8785A]/30 px-2.5 py-1 rounded-full shadow-sm shrink-0">
+          <span className="font-data font-black text-[9px] uppercase tracking-widest text-[#FF4D1C] border border-[#FF4D1C]/30 px-2.5 py-1 rounded-full shadow-sm shrink-0">
             Needed
           </span>
         </div>
@@ -57,7 +57,7 @@ const OpenCard: React.FC<{
         {eligible ? (
           <button
             onClick={onMarkInterested}
-            className="w-full min-h-[48px] py-3.5 bg-[#1A1A1A] text-white font-black uppercase text-xs tracking-widest flex items-center justify-center gap-2 relative z-10 transition-transform active:scale-[0.98] hover:bg-[#2962FF] rounded-xl shadow-lg mt-2"
+            className="w-full min-h-[48px] py-3.5 bg-[#1A1A1A] text-white font-black uppercase text-xs tracking-widest flex items-center justify-center gap-2 relative z-10 transition-transform active:scale-[0.98] hover:bg-[#FF7A1A] rounded-xl shadow-lg mt-2"
           >
             <HandMetal size={16} strokeWidth={2.5} />
             Mark as Interested
@@ -111,9 +111,9 @@ export const InterestToRead: React.FC = () => {
           animate="show"
           className="p-4 sm:p-6 lg:p-8 space-y-6 max-w-4xl mx-auto relative z-20 pb-12"
         >
-          <motion.div variants={fadeUpItem} className="bg-white p-4 sm:p-5 flex gap-3 sm:gap-4 items-start border-l-[6px] border-l-[#E8785A] rounded-2xl shadow-sm">
+          <motion.div variants={fadeUpItem} className="bg-white p-4 sm:p-5 flex gap-3 sm:gap-4 items-start border-l-[6px] border-l-[#FF4D1C] rounded-2xl shadow-sm">
             <div className="w-10 h-10 shrink-0 bg-[#F5F5F0] rounded-xl flex items-center justify-center shadow-inner">
-              <Info className="text-[#E8785A]" size={18} strokeWidth={2.5} />
+              <Info className="text-[#FF4D1C]" size={18} strokeWidth={2.5} />
             </div>
             <p className="font-data text-[10px] sm:text-[11px] font-bold uppercase tracking-widest leading-relaxed mt-0.5 text-[#1A1A1A]/70">
               {activeTab === 'open'
@@ -166,8 +166,8 @@ export const InterestToRead: React.FC = () => {
                     className="bg-white flex items-center justify-between gap-3 p-5 rounded-2xl shadow-[0_4px_20px_rgb(0,0,0,0.04)] border border-black/[0.02]"
                   >
                     <div className="flex items-center gap-4 min-w-0 flex-1">
-                      <div className="w-10 h-10 shrink-0 bg-[#8FCB7E]/10 rounded-full flex items-center justify-center">
-                        <CheckCircle2 size={20} className="text-[#8FCB7E]" strokeWidth={2.5} />
+                      <div className="w-10 h-10 shrink-0 bg-[#FFC800]/10 rounded-full flex items-center justify-center">
+                        <CheckCircle2 size={20} className="text-[#FFC800]" strokeWidth={2.5} />
                       </div>
                       <div className="min-w-0 flex-1">
                         <p className="font-black uppercase text-sm text-[#1A1A1A]">G-{match.gameNo}</p>

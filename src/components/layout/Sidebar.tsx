@@ -15,13 +15,13 @@ export const Sidebar: React.FC = () => {
   ];
 
   return (
-    <aside className="hidden md:flex flex-col h-full w-20 lg:w-64 felt-banner border-r-[3px] border-[var(--ink)] z-40 overflow-hidden shrink-0 relative">
-      {/* Brand Ambient Glow */}
-      <div className="absolute -top-20 -left-20 w-72 h-72 bg-[var(--signal)]/30 blur-[70px] rounded-full pointer-events-none" />
+    <aside className="hidden md:flex flex-col h-full w-20 lg:w-64 bg-[#141414] border-r border-white/10 z-40 overflow-hidden shrink-0 relative">
+      {/* Ambient Glow */}
+      <div className="absolute -top-20 -left-20 w-72 h-72 bg-[#FF7A1A]/20 blur-[70px] rounded-full pointer-events-none" />
 
-      {/* FLQL Tilted Dashed Logo */}
+      {/* FLQL Logo */}
       <div className="relative z-10 w-fit mt-8 mb-10 mx-auto lg:mx-0 lg:ml-8">
-        <div className="font-data font-black text-xl text-white px-3.5 py-2 border-[2px] border-dashed border-white transform -rotate-6 bg-[var(--ink)] shadow-lg tracking-widest">
+        <div className="font-data font-black text-xl text-white px-3.5 py-2 border-[2px] border-dashed border-white/50 transform -rotate-6 bg-black shadow-[4px_4px_0_rgba(255,255,255,0.1)] tracking-widest">
           FLQL
         </div>
       </div>
@@ -39,7 +39,7 @@ export const Sidebar: React.FC = () => {
               onClick={() => navigate(item.path)}
               className={`flex items-center justify-center lg:justify-start gap-4 py-4 lg:px-8 font-black uppercase text-sm tracking-widest transition-colors w-full outline-none ${
                 isActive
-                  ? 'bg-[var(--signal)] text-white'
+                  ? 'bg-[#FF7A1A] text-[#141414]'
                   : 'text-white/50 hover:text-white hover:bg-white/5'
               }`}
             >
@@ -49,11 +49,6 @@ export const Sidebar: React.FC = () => {
           );
         })}
       </nav>
-
-      {/* Base Ticket Perforation */}
-      <div className="relative z-10 mt-auto px-4 pb-6">
-        <div className="punch-row opacity-30" />
-      </div>
     </aside>
   );
 };

@@ -57,7 +57,7 @@ const ReadCard: React.FC<{
       {onMarkRead ? (
         <button
           onClick={onMarkRead}
-          className="w-full min-h-[48px] py-3.5 rounded-full font-black uppercase text-xs tracking-widest text-white bg-[#1A1A1A] shadow-xl flex items-center justify-center gap-2 active:scale-[0.98] transition-transform hover:bg-[#2962FF]"
+          className="w-full min-h-[48px] py-3.5 rounded-full font-black uppercase text-xs tracking-widest text-white bg-[#1A1A1A] shadow-xl flex items-center justify-center gap-2 active:scale-[0.98] transition-transform hover:bg-[#FF7A1A]"
         >
           <Check size={16} strokeWidth={3} />
           Mark as Completed
@@ -76,7 +76,7 @@ export const ReadSchedule: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'toread' | 'read'>('toread');
   const { toRead, read, markRead } = useReaderQueue();
 
-  const bgs = ['#E8785A', '#8FCB7E', '#2962FF', '#F0C94A'];
+  const bgs = ['#E8590C', '#FFC800', '#FF7A1A', '#C9960C'];
   const matches = activeTab === 'toread' ? toRead : read;
 
   return (
@@ -114,9 +114,9 @@ export const ReadSchedule: React.FC = () => {
           animate="show"
           className="p-4 sm:p-6 md:p-8 space-y-6 sm:space-y-8 max-w-4xl mx-auto relative z-20 pb-12"
         >
-          <motion.div variants={fadeUpItem} className="bg-white p-4 sm:p-5 flex gap-3 sm:gap-4 items-start border-l-[6px] border-l-[#2962FF] rounded-2xl shadow-sm">
+          <motion.div variants={fadeUpItem} className="bg-white p-4 sm:p-5 flex gap-3 sm:gap-4 items-start border-l-[6px] border-l-[#FF7A1A] rounded-2xl shadow-sm">
             <div className="w-10 h-10 shrink-0 bg-[#F5F5F0] rounded-xl flex items-center justify-center shadow-inner">
-              <Info className="text-[#2962FF]" size={18} strokeWidth={2.5} />
+              <Info className="text-[#FF7A1A]" size={18} strokeWidth={2.5} />
             </div>
             <p className="font-data text-[10px] sm:text-[11px] font-bold uppercase tracking-widest leading-relaxed mt-0.5 text-[#1A1A1A]/70">
               You can only read games that you are scheduled for via the draws sheet. Express interest for open slots in the 'Interest to Read' tab.

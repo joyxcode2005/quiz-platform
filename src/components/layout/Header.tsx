@@ -24,21 +24,21 @@ export const Header: React.FC = () => {
     <motion.button 
       whileTap={{ scale: 0.9 }}
       onClick={onClick}
-      className="neu-puck bg-white text-[var(--ink)] transition-transform"
+      className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors border border-white/10"
     >
       {children}
     </motion.button>
   );
 
   return (
-    <header className="h-20 bg-[var(--neu-bg)] flex items-center justify-between px-4 sticky top-0 z-50">
+    <header className="h-20 bg-[#141414]/80 backdrop-blur-2xl border-b border-white/10 flex items-center justify-between px-4 sticky top-0 z-50">
       <div className="flex items-center gap-4">
         {isHome ? (
           <NavButton><Menu size={20} strokeWidth={2.5} /></NavButton>
         ) : (
           <NavButton onClick={() => navigate(-1)}><ChevronLeft size={20} strokeWidth={2.5} /></NavButton>
         )}
-        <h1 className="font-black uppercase text-xl tracking-wide text-[var(--ink)]">{getTitle()}</h1>
+        <h1 className="font-black uppercase text-xl tracking-wide text-white drop-shadow-sm">{getTitle()}</h1>
       </div>
       
       {isHome ? (
