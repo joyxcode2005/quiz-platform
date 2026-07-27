@@ -36,24 +36,24 @@ export const SeasonalLeaderboard: React.FC = () => {
 
   return (
     <PageLayout>
-      <div className="min-h-screen relative flex flex-col w-full">
-        <section className="relative pt-8 pb-10 sm:pt-12 sm:pb-14 px-4 flex flex-col items-center text-[#FAF9F6] z-20">
-          <div className="relative z-10 w-full max-w-md mx-auto flex flex-col items-center">
-            <span className="font-data font-black text-[9px] tracking-[0.3em] uppercase mb-3 text-white/60 border border-white/20 px-3 py-1 rounded-full backdrop-blur-md">
+      <div className="min-h-screen relative flex flex-col w-full text-white">
+        <section className="relative pt-8 pb-8 sm:pt-12 sm:pb-10 md:pt-10 md:pb-10 px-4 flex flex-col items-center z-20">
+          <div className="relative z-10 w-full max-w-md md:max-w-2xl mx-auto flex flex-col items-center">
+            <span className="font-data font-black text-[9px] md:text-[10px] tracking-[0.3em] uppercase mb-2 md:mb-3 text-white/60 border border-white/20 px-3 py-1 md:px-4 md:py-1 rounded-full backdrop-blur-md">
               Season 3 Standings
             </span>
-            <h1 className="font-black text-3xl sm:text-5xl text-center leading-[0.9] tracking-tighter mb-4 emboss-dark">
+            <h1 className="font-black text-3xl sm:text-5xl md:text-5xl text-center leading-[0.9] tracking-tighter mb-4 md:mb-5 drop-shadow-md uppercase">
               TEAM<br/>LEADERBOARD
             </h1>
           </div>
         </section>
 
-        <div className="max-w-4xl mx-auto px-2 sm:px-6 relative z-20 pt-2 w-full">
-          <div className="bg-[#141414]/60 backdrop-blur-xl p-1 rounded-xl shadow-sm border border-white/10 flex w-full max-w-xs mx-auto mb-6 relative">
+        <div className="max-w-[1400px] mx-auto px-2 sm:px-4 md:px-6 relative z-20 pt-2 w-full pb-12">
+          <div className="bg-[#141414]/60 backdrop-blur-xl p-1 md:p-1.5 rounded-xl shadow-sm border border-white/10 flex w-full max-w-xs md:max-w-sm mx-auto mb-6 md:mb-8 relative">
             {(['india', 'intl'] as const).map((track) => {
               const isActive = activeTrack === track;
               return (
-                <button key={track} onClick={() => setActiveTrack(track)} className={`flex-1 py-1.5 px-2 rounded-lg font-black uppercase text-[10px] sm:text-xs tracking-widest relative z-10 transition-colors ${isActive ? 'text-black' : 'text-white/50 hover:text-white'}`}>
+                <button key={track} onClick={() => setActiveTrack(track)} className={`flex-1 py-1.5 md:py-2 px-2 rounded-lg font-black uppercase text-[10px] md:text-[11px] tracking-widest relative z-10 transition-colors ${isActive ? 'text-black' : 'text-white/50 hover:text-white'}`}>
                   {isActive && <motion.div layoutId="activeSeasonTrack" className="absolute inset-0 bg-[#FF7A1A] rounded-lg shadow-md -z-10" transition={{ type: "spring", bounce: 0.2, duration: 0.6 }} />}
                   {track === 'intl' ? "Int'l Track" : "India Track"}
                 </button>
@@ -61,36 +61,36 @@ export const SeasonalLeaderboard: React.FC = () => {
             })}
           </div>
 
-          <motion.div variants={staggerContainer} initial="hidden" animate="show" className="pb-12 w-full overflow-x-hidden">
+          <motion.div variants={staggerContainer} initial="hidden" animate="show" className="w-full overflow-x-hidden">
             <table className="w-full text-left border-separate table-fixed" style={{ borderSpacing: '0 4px' }}>
               <thead>
-                <tr className="text-[8px] sm:text-[9px] uppercase font-black text-white/40 tracking-widest">
-                  <th className="px-2 pb-1 w-10 sm:w-14 text-center">Rank</th>
-                  <th className="px-2 pb-1">Team</th>
-                  <th className="px-2 pb-1 hidden sm:table-cell">Players</th>
-                  <th className="px-2 pb-1 text-right w-14 sm:w-20">Points</th>
+                <tr className="text-[8px] md:text-[10px] uppercase font-black text-white/40 tracking-widest">
+                  <th className="px-2 pb-1 md:pb-2 w-10 md:w-14 text-center">Rank</th>
+                  <th className="px-2 pb-1 md:pb-2">Team</th>
+                  <th className="px-2 pb-1 md:pb-2 hidden sm:table-cell">Players</th>
+                  <th className="px-2 pb-1 md:pb-2 text-right w-14 md:w-24">Points</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody className="md:[&>tr>td]:py-2">
                 <AnimatePresence mode="popLayout">
                   {teams.map((team) => (
                     <motion.tr layout variants={fadeUpItem} key={`${activeTrack}-${team.rank}`} className="group">
-                      <td className="p-1 sm:p-1.5 text-center bg-[#141414]/60 backdrop-blur-xl border-y border-l border-white/10 rounded-l-lg shadow-[0_4px_15px_rgb(0,0,0,0.3)]">
-                        <div className={`mx-auto w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center font-data font-black text-[9px] sm:text-[10px] ${medalStyle(team.rank)}`}>
+                      <td className="p-1 md:p-2 text-center bg-[#141414]/60 backdrop-blur-xl border-y border-l border-white/10 rounded-l-lg md:rounded-l-xl shadow-[0_4px_15px_rgb(0,0,0,0.3)]">
+                        <div className={`mx-auto w-5 h-5 md:w-6 md:h-6 rounded-full flex items-center justify-center font-data font-black text-[9px] md:text-[11px] ${medalStyle(team.rank)}`}>
                           {team.rank}
                         </div>
                       </td>
-                      <td className="p-1.5 sm:p-2 min-w-0 bg-[#141414]/60 backdrop-blur-xl border-y border-white/10">
+                      <td className="p-1.5 md:p-2.5 min-w-0 bg-[#141414]/60 backdrop-blur-xl border-y border-white/10">
                         <div className="flex flex-col min-w-0">
-                          <span className="font-black text-[10px] sm:text-xs uppercase text-white truncate group-hover:text-[#FF7A1A] transition-colors">{team.team}</span>
+                          <span className="font-black text-[10px] md:text-sm uppercase text-white truncate group-hover:text-[#FF7A1A] transition-colors">{team.team}</span>
                           <span className="sm:hidden text-[8px] font-data font-bold text-white/50 uppercase tracking-widest mt-[1px] truncate">{team.players}</span>
                         </div>
                       </td>
-                      <td className="p-1.5 sm:p-2 text-[9px] sm:text-[10px] font-data font-bold text-white/60 uppercase tracking-wide truncate hidden sm:table-cell bg-[#141414]/60 backdrop-blur-xl border-y border-white/10">
+                      <td className="p-1.5 md:p-2.5 text-[9px] md:text-xs font-data font-bold text-white/60 uppercase tracking-wide truncate hidden sm:table-cell bg-[#141414]/60 backdrop-blur-xl border-y border-white/10">
                         {team.players}
                       </td>
-                      <td className="p-1.5 sm:p-2 text-right pr-2 sm:pr-3 bg-[#141414]/60 backdrop-blur-xl border-y border-r border-white/10 rounded-r-lg shadow-[0_4px_15px_rgb(0,0,0,0.3)]">
-                        <span className="font-data font-black text-[10px] sm:text-xs bg-white/20 text-white px-1.5 py-0.5 rounded shadow-inner">{team.points.toFixed(1)}</span>
+                      <td className="p-1.5 md:p-2.5 text-right pr-2 md:pr-4 bg-[#141414]/60 backdrop-blur-xl border-y border-r border-white/10 rounded-r-lg md:rounded-r-xl shadow-[0_4px_15px_rgb(0,0,0,0.3)]">
+                        <span className="font-data font-black text-[10px] md:text-xs bg-white/20 text-white px-1.5 md:px-2 py-0.5 rounded shadow-inner">{team.points.toFixed(1)}</span>
                       </td>
                     </motion.tr>
                   ))}

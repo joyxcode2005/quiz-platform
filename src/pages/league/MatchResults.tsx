@@ -18,31 +18,31 @@ export const MatchResults: React.FC = () => {
 
   return (
     <PageLayout>
-      <div className="min-h-screen relative flex flex-col w-full">
-        <section className="relative pt-8 pb-10 sm:pt-12 sm:pb-14 px-4 flex flex-col items-center text-[#FAF9F6] z-20">
+      <div className="min-h-screen relative flex flex-col w-full text-white">
+        <section className="relative pt-6 pb-6 sm:pt-10 sm:pb-8 md:pt-10 md:pb-8 px-4 flex flex-col items-center z-20">
           <div className="w-full max-w-md mx-auto flex flex-col items-center">
-            <span className="font-data font-black text-[9px] tracking-[0.3em] uppercase mb-3 text-white/60 border border-white/20 px-3 py-1 rounded-full backdrop-blur-md">
+            <span className="font-data font-black text-[9px] md:text-[10px] tracking-[0.3em] uppercase mb-2 md:mb-3 text-white/60 border border-white/20 px-3 py-1 md:px-4 md:py-1 rounded-full backdrop-blur-md">
               Room Scores
             </span>
-            <h1 className="font-black text-3xl sm:text-5xl text-center leading-[0.9] tracking-tighter mb-5 emboss-dark">
-              MATCH<br/>RESULTS
+            <h1 className="font-black text-3xl sm:text-5xl md:text-5xl text-center leading-[0.9] tracking-tighter mb-4 md:mb-5 drop-shadow-md uppercase">
+              Match<br/>Results
             </h1>
-            <div className="relative w-52 h-10 bg-white/10 backdrop-blur-xl border border-white/20 shadow-xl rounded-xl flex items-center justify-between px-4 hover:bg-white/20 transition-colors cursor-pointer group">
+            <div className="relative w-52 md:w-56 h-10 bg-white/10 backdrop-blur-xl border border-white/20 shadow-xl rounded-xl flex items-center justify-between px-4 hover:bg-white/20 transition-colors cursor-pointer group">
               <select value={activeWeek} onChange={(e) => setActiveWeek(Number(e.target.value))} className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-20">
                 {Object.keys(weeklyMatches).map((w) => (<option key={w} value={w}>Gameweek {w}</option>))}
               </select>
-              <span className="font-bold text-xs uppercase tracking-widest relative z-10 group-hover:text-white text-white/90 transition-colors">Gameweek {activeWeek}</span>
-              <ChevronDown size={14} className="text-white/60 relative z-10 group-hover:text-white transition-colors" />
+              <span className="font-bold text-xs md:text-sm uppercase tracking-widest relative z-10 group-hover:text-white text-white/90 transition-colors">Gameweek {activeWeek}</span>
+              <ChevronDown className="w-3.5 h-3.5 md:w-4 md:h-4 text-white/60 relative z-10 group-hover:text-white transition-colors" />
             </div>
           </div>
         </section>
 
-        <div className="max-w-4xl mx-auto px-2 sm:px-6 pb-12 w-full z-20">
-          <div className="bg-[#141414]/60 backdrop-blur-xl p-1 rounded-xl shadow-[0_4px_20px_rgb(0,0,0,0.4)] border border-white/10 flex w-full max-w-xs mx-auto mb-6 relative">
+        <div className="max-w-[1400px] mx-auto px-2 sm:px-4 md:px-6 pb-12 md:pb-16 w-full z-20">
+          <div className="bg-[#141414]/60 backdrop-blur-xl p-1 rounded-xl shadow-[0_4px_20px_rgb(0,0,0,0.4)] border border-white/10 flex w-full max-w-xs md:max-w-sm mx-auto mb-6 relative">
             {TRACK_OPTIONS.map(({ id, label }) => {
               const isActive = activeTrack === id;
               return (
-                <button key={id} onClick={() => setActiveTrack(id as ScoringTrack)} className={`flex-1 py-1.5 px-2 rounded-lg font-black uppercase text-[10px] sm:text-xs tracking-widest relative z-10 transition-colors ${isActive ? 'text-black' : 'text-white/50 hover:text-white'}`}>
+                <button key={id} onClick={() => setActiveTrack(id as ScoringTrack)} className={`flex-1 py-1.5 md:py-2 px-2 rounded-lg font-black uppercase text-[10px] md:text-xs tracking-widest relative z-10 transition-colors ${isActive ? 'text-black' : 'text-white/50 hover:text-white'}`}>
                   {isActive && <motion.div layoutId="activeMatchTrack" className="absolute inset-0 bg-[#FF7A1A] rounded-lg shadow-md -z-10" transition={{ type: "spring", bounce: 0.2, duration: 0.6 }} />}
                   {label}
                 </button>
@@ -50,12 +50,12 @@ export const MatchResults: React.FC = () => {
             })}
           </div>
 
-          <motion.div variants={staggerContainer} initial="hidden" animate="show" className="flex flex-col gap-4 w-full">
-            <div className="flex items-center text-[9px] sm:text-[10px] uppercase font-black text-white/40 tracking-widest w-full px-1">
-              <div className="w-8 sm:w-14 text-center shrink-0">M#</div>
-              <div className="flex-1 pl-3 sm:pl-4">Player</div>
-              <div className="w-16 text-right hidden sm:block shrink-0">BAs</div>
-              <div className="w-16 sm:w-20 text-right pr-3 sm:pr-4 shrink-0">Score</div>
+          <motion.div variants={staggerContainer} initial="hidden" animate="show" className="flex flex-col gap-4 md:gap-3 w-full">
+            <div className="flex items-center text-[9px] md:text-[11px] uppercase font-black text-white/40 tracking-widest w-full px-1 md:px-2">
+              <div className="w-8 sm:w-12 md:w-16 text-center shrink-0">M#</div>
+              <div className="flex-1 pl-3 md:pl-5">Player</div>
+              <div className="w-16 md:w-20 lg:w-24 text-right hidden sm:block shrink-0">BAs</div>
+              <div className="w-16 sm:w-20 md:w-24 text-right pr-3 md:pr-5 shrink-0">Score</div>
             </div>
 
             <AnimatePresence mode="popLayout">
@@ -68,7 +68,7 @@ export const MatchResults: React.FC = () => {
                 const topScore = sortedPlayers[0].pts;
 
                 return (
-                  <motion.div layout initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} key={`${activeWeek}-${match.matchId}`} className="bg-[#141414]/60 backdrop-blur-xl rounded-xl shadow-[0_4px_20px_rgb(0,0,0,0.4)] border border-white/10 overflow-hidden">
+                  <motion.div layout initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} key={`${activeWeek}-${match.matchId}`} className="bg-[#141414]/60 backdrop-blur-xl rounded-xl md:rounded-2xl shadow-[0_4px_20px_rgb(0,0,0,0.4)] border border-white/10 overflow-hidden">
                     <table className="w-full text-left border-collapse table-fixed">
                       <tbody>
                         {sortedPlayers.map((player, idx) => {
@@ -77,30 +77,30 @@ export const MatchResults: React.FC = () => {
                           return (
                             <tr key={`${match.matchId}-${player.name}`} className={`transition-colors ${isWinner ? 'bg-[#FFC800]/20' : 'hover:bg-white/5'} ${!isLast ? 'border-b border-white/5' : ''}`}>
                               {idx === 0 && (
-                                <td rowSpan={sortedPlayers.length} className="w-8 sm:w-14 border-r border-white/5 text-center align-middle bg-white/5">
-                                  <div className="flex items-center justify-center h-full min-h-[3.5rem]">
-                                    <span style={{ writingMode: 'vertical-rl' }} className="rotate-180 sm:rotate-0 sm:writing-none font-data font-black text-[10px] bg-white/20 text-white px-1 sm:px-2 py-2 sm:py-1 rounded shadow-inner tracking-widest sm:tracking-normal">
+                                <td rowSpan={sortedPlayers.length} className="w-8 sm:w-12 md:w-16 border-r border-white/5 text-center align-middle bg-white/5">
+                                  <div className="flex items-center justify-center h-full min-h-[3.5rem] md:min-h-[4rem]">
+                                    <span style={{ writingMode: 'vertical-rl' }} className="rotate-180 sm:rotate-0 sm:writing-none font-data font-black text-[10px] md:text-[11px] bg-white/20 text-white px-1 sm:px-2 md:px-3 py-2 sm:py-1 md:py-1.5 rounded shadow-inner tracking-widest sm:tracking-normal">
                                       M-{match.matchId}
                                     </span>
                                   </div>
                                 </td>
                               )}
-                              <td className="p-1.5 sm:p-2 pl-3 sm:pl-4 min-w-0">
-                                <div className="flex items-center gap-2 sm:gap-3">
-                                  <div className={`w-5 h-5 sm:w-6 sm:h-6 shrink-0 rounded-full flex items-center justify-center font-data font-black text-[8px] sm:text-[9px] shadow-sm ${isWinner ? 'bg-[#FFD700] text-black' : 'bg-white/10 text-white/50'}`}>
-                                    {isWinner ? <Trophy size={8} strokeWidth={2.5} /> : getInitials(player.name)}
+                              <td className="p-1.5 sm:p-2 md:p-2.5 pl-3 md:pl-5 min-w-0">
+                                <div className="flex items-center gap-2 md:gap-3">
+                                  <div className={`w-5 h-5 md:w-6 md:h-6 shrink-0 rounded-full flex items-center justify-center font-data font-black text-[8px] md:text-[10px] shadow-sm ${isWinner ? 'bg-[#FFD700] text-black' : 'bg-white/10 text-white/50'}`}>
+                                    {isWinner ? <Trophy className="w-[8px] h-[8px] md:w-[10px] md:h-[10px]" strokeWidth={2.5} /> : getInitials(player.name)}
                                   </div>
                                   <div className="flex flex-col min-w-0 truncate">
-                                    <span className={`font-black uppercase text-[10px] sm:text-xs truncate ${isWinner ? 'text-white' : 'text-white/80'}`}>{player.name}</span>
+                                    <span className={`font-black uppercase text-[10px] sm:text-xs md:text-sm truncate ${isWinner ? 'text-white' : 'text-white/80'}`}>{player.name}</span>
                                     <span className="sm:hidden text-[8px] font-data font-bold text-white/40 uppercase tracking-widest mt-[1px]">{player.bas} BAs</span>
                                   </div>
                                 </div>
                               </td>
-                              <td className="p-1.5 sm:p-2 text-right hidden sm:table-cell w-16">
-                                <span className="font-data font-black text-[11px] sm:text-xs text-white/60">{player.bas}</span>
+                              <td className="p-1.5 sm:p-2 md:p-2.5 text-right hidden sm:table-cell w-16 md:w-20 lg:w-24">
+                                <span className="font-data font-black text-[11px] md:text-xs text-white/60">{player.bas}</span>
                               </td>
-                              <td className="p-1.5 sm:p-2 text-right pr-3 sm:pr-4 w-16 sm:w-20">
-                                <span className={`font-data font-black text-[10px] sm:text-xs px-1.5 sm:px-2 py-0.5 rounded border ${isWinner ? 'bg-[#FFD700] text-black border-transparent' : 'bg-white/10 text-white border-white/10 shadow-sm'}`}>{player.pts}</span>
+                              <td className="p-1.5 sm:p-2 md:p-2.5 text-right pr-3 md:pr-5 w-16 sm:w-20 md:w-24">
+                                <span className={`font-data font-black text-[10px] md:text-xs px-1.5 md:px-2 py-0.5 rounded border ${isWinner ? 'bg-[#FFD700] text-black border-transparent' : 'bg-white/10 text-white border-white/10 shadow-sm'}`}>{player.pts}</span>
                               </td>
                             </tr>
                           );
