@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { PageLayout } from '../../components/layout/PageLayout';
 import { Clock, Info, HandMetal, Lock, CheckCircle2 } from 'lucide-react';
-import { staggerContainer, staggerItem } from '../../lib/animations';
+import { staggerContainer } from '../../lib/animations';
 import { useReaderQueue, type OpenReadGame } from '../../hooks/useReaderQueue';
 
 const springTransition = { type: 'spring', damping: 22, stiffness: 120 } as const;
