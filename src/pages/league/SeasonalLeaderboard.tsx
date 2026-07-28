@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { PageLayout } from '../../components/layout/PageLayout';
 
-const springTransition = { type: 'spring', damping: 22, stiffness: 120 };
-const staggerContainer = { hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.04 } } };
-const fadeUpItem = { hidden: { opacity: 0, scale: 0.98 }, show: { opacity: 1, scale: 1, transition: springTransition }, exit: { opacity: 0, scale: 0.95, transition: { duration: 0.2 } } };
+const springTransition = { type: 'spring', damping: 22, stiffness: 120 } as const;
+const staggerContainer = { hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.04 } } } as const;
+const fadeUpItem = { hidden: { opacity: 0, scale: 0.98 }, show: { opacity: 1, scale: 1, transition: springTransition }, exit: { opacity: 0, scale: 0.95, transition: { duration: 0.2 } } } as const;
 
 interface TeamEntry { rank: number; team: string; players: string; points: number; }
 

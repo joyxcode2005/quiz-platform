@@ -4,9 +4,9 @@ import { PageLayout } from '../../components/layout/PageLayout';
 import { Clock, Info, CheckCircle2, Check } from 'lucide-react';
 import { useReaderQueue, type ScheduledReadGame } from '../../hooks/useReaderQueue';
 
-const springTransition = { type: 'spring', damping: 22, stiffness: 120 };
-const staggerContainer = { hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.04 } } };
-const fadeUpItem = { hidden: { opacity: 0, y: 10 }, show: { opacity: 1, y: 0, transition: springTransition }, exit: { opacity: 0, scale: 0.95, transition: { duration: 0.2 } } };
+const springTransition = { type: 'spring', damping: 22, stiffness: 120 } as const;
+const staggerContainer = { hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.04 } } } as const;
+const fadeUpItem = { hidden: { opacity: 0, y: 10 }, show: { opacity: 1, y: 0, transition: springTransition }, exit: { opacity: 0, scale: 0.95, transition: { duration: 0.2 } } } as const;
 
 const ReadCard: React.FC<{ match: ScheduledReadGame; onMarkRead?: () => void; }> = ({ match, onMarkRead }) => (
   <motion.div layout variants={fadeUpItem} className="bg-[#141414]/60 backdrop-blur-xl rounded-3xl flex flex-col relative overflow-hidden shadow-2xl border border-white/10 w-full">

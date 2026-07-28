@@ -90,7 +90,7 @@ export const Profile: React.FC = () => {
           </motion.div>
 
           {/* RIGHT: Stats and Menus */}
-          <div className="flex-1 flex flex-col gap-6 md:gap-8">
+          {/* <div className="flex-1 flex flex-col gap-6 md:gap-8">
             <motion.div variants={staggerItem} className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 w-full">
               <div className="bg-[#141414]/60 backdrop-blur-xl border border-white/10 rounded-3xl flex flex-col items-center justify-center p-6 md:p-8 aspect-[3/4] sm:aspect-square md:aspect-auto shadow-xl col-span-2 md:col-span-1">
                 <span className="font-black text-7xl md:text-8xl mb-2 md:mb-4 text-[#FFC800] drop-shadow-lg leading-none">
@@ -126,7 +126,7 @@ export const Profile: React.FC = () => {
               <MenuItem icon={Settings} title="Account Settings" onClick={handleAccountSettings} />
               <MenuItem icon={LogOut} title="Logout" isDanger onClick={handleLogout} />
             </motion.div>
-          </div>
+          </div> */}
         </motion.div>
       </div>
     </PageLayout>

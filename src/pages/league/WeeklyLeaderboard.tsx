@@ -5,9 +5,9 @@ import { ChevronDown, Crown, TrendingUp, TrendingDown, Minus, Sparkles } from 'l
 import { weeklyMatches } from '../../data/mockScores';
 import { COMPETITION_CONFIG, type ScoringTrack } from '../../types';
 
-const springTransition = { type: 'spring', damping: 22, stiffness: 120 };
+const springTransition = { type: 'spring', damping: 22, stiffness: 120 } as const;
 const staggerContainer = { hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.04 } } };
-const fadeUpItem = { hidden: { opacity: 0, scale: 0.98 }, show: { opacity: 1, scale: 1, transition: springTransition }, exit: { opacity: 0, scale: 0.95, transition: { duration: 0.2 } } };
+const fadeUpItem = { hidden: { opacity: 0, scale: 0.98 }, show: { opacity: 1, scale: 1, transition: springTransition }, exit: { opacity: 0, scale: 0.95, transition: { duration: 0.2 } } } as const;
 
 const getPlayerMeta = (name: string, rank: number) => {
   const initials = name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();

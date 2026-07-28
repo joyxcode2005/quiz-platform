@@ -5,9 +5,9 @@ import { User, Globe2, ChevronDown } from 'lucide-react';
 import { mockDraws, availableWeeks } from '../../data/mockDraws';
 import type { WeekDraws } from '../../types';
 
-const springTransition = { type: 'spring', damping: 22, stiffness: 120 };
-const fadeUpItem = { hidden: { opacity: 0, scale: 0.98 }, show: { opacity: 1, scale: 1, transition: springTransition } };
-const staggerContainer = { hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.04 } } };
+const springTransition = { type: 'spring', damping: 22, stiffness: 120 } as const;
+const fadeUpItem = { hidden: { opacity: 0, scale: 0.98 }, show: { opacity: 1, scale: 1, transition: springTransition } } as const;
+const staggerContainer = { hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.04 } } } as const;
 const TRACK_OPTIONS = [ { id: 'INDIA', label: 'India Track' }, { id: 'INTL', label: "Int'l Track" } ] as const;
 
 export const Draws: React.FC = () => {
