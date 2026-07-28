@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Calendar, Heart, Settings, LogOut, ChevronRight, type LucideIcon, UserIcon } from 'lucide-react';
+import { Calendar, ChevronRight, Heart, LogOut, type LucideIcon, Settings, UserIcon } from 'lucide-react';
 import { PageLayout } from '../components/layout/PageLayout';
 import { useAuth } from '../context/AuthContext';
 import { staggerContainer, staggerItem } from '../lib/animations';
@@ -46,20 +46,20 @@ export const Profile: React.FC = () => {
     </motion.button>
   );
 
-  const displayName = 
-    profile?.name || 
-    user?.user_metadata?.full_name || 
-    user?.user_metadata?.name || 
-    user?.email?.split('@')[0] || 
+  const displayName =
+    profile?.name ||
+    user?.user_metadata?.full_name ||
+    user?.user_metadata?.name ||
+    user?.email?.split('@')[0] ||
     'USER';
 
   return (
     <PageLayout>
       <div className="min-h-screen relative flex flex-col w-full text-white">
-        <motion.div 
-          variants={staggerContainer} 
-          initial="hidden" 
-          animate="show" 
+        <motion.div
+          variants={staggerContainer}
+          initial="hidden"
+          animate="show"
           className="relative z-10 flex flex-col lg:flex-row gap-6 md:gap-8 w-full max-w-md lg:max-w-[1200px] mx-auto pt-10 md:pt-16 px-4 md:px-8 pb-16"
         >
           {/* LEFT: Profile Overview */}
@@ -72,61 +72,32 @@ export const Profile: React.FC = () => {
                   <UserIcon className="w-12 h-12 md:w-16 md:h-16 text-white/60" strokeWidth={2} />
                 )}
               </div>
-              
+
               <h2 className="relative z-10 font-black text-3xl md:text-4xl text-white text-center uppercase tracking-tighter leading-none mb-6 drop-shadow-md">
                 {displayName}
               </h2>
-              
+
               <div className="relative z-10 font-black text-[10px] md:text-xs text-[#141414] bg-white uppercase tracking-widest px-5 md:px-6 py-1.5 md:py-2 rounded-full border border-white/20">
                 {profile?.role || 'PLAYER'}
               </div>
 
               {profile?.created_at && (
                 <p className="relative z-10 text-[10px] md:text-xs text-white/50 font-data uppercase tracking-widest mt-8 text-center">
-                  Joined<br/>{new Date(profile.created_at).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
+                  Joined<br />{new Date(profile.created_at).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
                 </p>
               )}
             </div>
           </motion.div>
 
           {/* RIGHT: Stats and Menus */}
-          {/* <div className="flex-1 flex flex-col gap-6 md:gap-8">
-            <motion.div variants={staggerItem} className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 w-full">
-              <div className="bg-[#141414]/60 backdrop-blur-xl border border-white/10 rounded-3xl flex flex-col items-center justify-center p-6 md:p-8 aspect-[3/4] sm:aspect-square md:aspect-auto shadow-xl col-span-2 md:col-span-1">
-                <span className="font-black text-7xl md:text-8xl mb-2 md:mb-4 text-[#FFC800] drop-shadow-lg leading-none">
-                  {profile?.gamesPlayed || profile?.games_played || 0}
-                </span>
-                <span className="text-[10px] md:text-xs font-black font-data uppercase tracking-[0.2em] text-white/50 text-center leading-tight">
-                  GAMES<br/>PLAYED
-                </span>
-              </div>
-              
-              <div className="bg-[#141414]/60 backdrop-blur-xl border border-white/10 rounded-3xl flex flex-col items-center justify-center p-6 md:p-8 shadow-xl">
-                <span className="font-black text-4xl md:text-6xl text-white mb-2 md:mb-4">
-                  {profile?.gamesRead || profile?.games_read || 0}
-                </span>
-                <span className="text-[9px] md:text-[10px] font-black font-data uppercase tracking-[0.2em] text-white/50 text-center">
-                  GAMES READ
-                </span>
-              </div>
-              
-              <div className="bg-[#141414]/60 backdrop-blur-xl border border-white/10 rounded-3xl flex flex-col items-center justify-center p-6 md:p-8 shadow-xl">
-                <span className="font-black text-4xl md:text-6xl text-white mb-2 md:mb-4">
-                  {profile?.interestsSent || profile?.interests_sent || 0}
-                </span>
-                <span className="text-[9px] md:text-[10px] font-black font-data uppercase tracking-[0.2em] text-white/50 text-center">
-                  INTERESTS
-                </span>
-              </div>
-            </motion.div>
-
+          <div className="flex-1 flex flex-col gap-6 md:gap-8">
             <motion.div variants={staggerItem} className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 w-full">
               <MenuItem icon={Calendar} title="My Read Schedule" />
               <MenuItem icon={Heart} title="My Interests" />
               <MenuItem icon={Settings} title="Account Settings" onClick={handleAccountSettings} />
               <MenuItem icon={LogOut} title="Logout" isDanger onClick={handleLogout} />
             </motion.div>
-          </div> */}
+          </div>
         </motion.div>
       </div>
     </PageLayout>
