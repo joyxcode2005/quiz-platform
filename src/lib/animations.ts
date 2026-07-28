@@ -5,13 +5,13 @@ export const brutalTransition = {
   stiffness: 400,
   damping: 25,
   mass: 1,
-};
+} as const;
 
 export const tapTransition = {
   type: "spring",
   stiffness: 600,
   damping: 15,
-};
+} as const;
 
 export const pageVariants: Variants = {
   initial: { opacity: 0, y: 15 },

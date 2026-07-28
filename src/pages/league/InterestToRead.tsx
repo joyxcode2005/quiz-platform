@@ -5,8 +5,8 @@ import { Clock, Info, HandMetal, Lock, CheckCircle2 } from 'lucide-react';
 import { staggerContainer, staggerItem } from '../../lib/animations';
 import { useReaderQueue, type OpenReadGame } from '../../hooks/useReaderQueue';
 
-const springTransition = { type: 'spring', damping: 22, stiffness: 120 };
-const fadeUpItem = { hidden: { opacity: 0, y: 10 }, show: { opacity: 1, y: 0, transition: springTransition }, exit: { opacity: 0, scale: 0.95, transition: { duration: 0.2 } } };
+const springTransition = { type: 'spring', damping: 22, stiffness: 120 } as const;
+const fadeUpItem = { hidden: { opacity: 0, y: 10 }, show: { opacity: 1, y: 0, transition: springTransition }, exit: { opacity: 0, scale: 0.95, transition: { duration: 0.2 } } } as const;
 
 const OpenCard: React.FC<{ match: OpenReadGame; eligible: boolean; onMarkInterested: () => void; }> = ({ match, eligible, onMarkInterested }) => {
   return (

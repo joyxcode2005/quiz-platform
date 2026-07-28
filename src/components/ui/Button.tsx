@@ -28,7 +28,7 @@ export const Button: React.FC<ButtonProps> = ({
     <motion.button
       whileTap={{ x: 3, y: 3, boxShadow: '0px 0px 0px 0px var(--ink)', transition: tapTransition }}
       className={`${baseStyle} ${variants[variant]} ${fullWidth ? 'w-full' : ''} ${className}`}
-      {...props}
+      {...(Object.fromEntries(Object.entries(props).filter(([key]) => !['onDrag', 'onDragStart', 'onDragEnd'].includes(key))) as any)}
     >
       {children}
     </motion.button>
