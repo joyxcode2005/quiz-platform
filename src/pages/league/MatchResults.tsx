@@ -5,7 +5,6 @@ import { ChevronDown, Trophy } from 'lucide-react';
 import { weeklyMatches } from '../../data/mockScores';
 import { type ScoringTrack } from '../../types';
 
-const springTransition = { type: 'spring', damping: 22, stiffness: 120 };
 const staggerContainer = { hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.04 } } };
 const TRACK_OPTIONS = [ { id: 'india', label: 'India Track' }, { id: 'intl', label: "Int'l Track" } ] as const;
 const getInitials = (name: string) => name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
