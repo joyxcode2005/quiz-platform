@@ -2,6 +2,7 @@ import React from 'react';
 import { Menu, Bell, ChevronLeft, Home, Trophy, User } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import logo from "../../assets/logo.png"
 
 export const Header: React.FC = () => {
   const navigate = useNavigate();
@@ -62,9 +63,9 @@ export const Header: React.FC = () => {
         {/* Logo */}
         <div 
           onClick={() => navigate('/home')}
-          className="font-data font-black text-xl text-white px-3.5 py-1.5 border-[2px] border-dashed border-white/50 transform -rotate-3 bg-black shadow-[3px_3px_0_rgba(255,255,255,0.1)] tracking-widest cursor-pointer hover:scale-105 transition-transform"
+          className=" px-3.5 py-1.5"
         >
-          FLQL
+          <img className='w-12 h-12 rounded-full' src={logo} alt="logo" />
         </div>
 
         {/* Nav Links */}

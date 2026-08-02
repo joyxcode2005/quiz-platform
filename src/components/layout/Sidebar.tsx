@@ -3,6 +3,7 @@ import { Home, Trophy, User } from 'lucide-react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { tapTransition } from '../../lib/animations';
+import logo from "../../assets/logo.png"
 
 export const Sidebar: React.FC = () => {
   const location = useLocation();
@@ -21,9 +22,7 @@ export const Sidebar: React.FC = () => {
 
       {/* FLQL Logo */}
       <div className="relative z-10 w-fit mt-8 mb-10 mx-auto lg:mx-0 lg:ml-8">
-        <div className="font-data font-black text-xl text-white px-3.5 py-2 border-[2px] border-dashed border-white/50 transform -rotate-6 bg-black shadow-[4px_4px_0_rgba(255,255,255,0.1)] tracking-widest">
-          FLQL
-        </div>
+        <img src={logo} alt="" />
       </div>
 
       {/* Edge-to-Edge Navigation */}
