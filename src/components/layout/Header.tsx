@@ -29,7 +29,7 @@ export const Header: React.FC = () => {
 
   return (
     <>
-      <header className="bg-[#141414]/80 backdrop-blur-2xl border-b border-white/10 sticky top-0 z-50 px-4">
+      <header className="bg-[#141414]/80 backdrop-blur-2xl border-b border-white/10 sticky top-0 z-50 px-4 md:bg-transparent md:backdrop-blur-none md:border-b-0">
 
         {/* ================= MOBILE HEADER (single row) ================= */}
         <div className="md:hidden flex items-center justify-between w-full py-3">
@@ -93,8 +93,8 @@ export const Header: React.FC = () => {
           {/* Left spacer — the big background blob is the brand mark on desktop now, no header logo needed */}
           <div className="w-11" />
 
-          {/* Nav Links */}
-          <nav className="flex items-center gap-3">
+          {/* Nav Links — its own floating capsule, since the header itself is transparent on desktop now */}
+          <nav className="flex items-center gap-3 bg-[#141414]/80 backdrop-blur-2xl border border-white/10 rounded-full px-2 py-2 shadow-lg">
             {navItems.map((item) => {
               const isActive = location.pathname === item.path || location.pathname.startsWith(item.path);
               return (
