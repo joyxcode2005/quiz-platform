@@ -95,6 +95,7 @@ const DynamicHeroMask: React.FC<{
 
   useEffect(() => {
     let rafId: number | null = null;
+    let settleRafId: number | null = null;
 
     const update = () => {
       const el = wrapRef.current;
@@ -120,6 +121,24 @@ const DynamicHeroMask: React.FC<{
 
     update();
 
+    // The hero text is still mid-entrance-animation (staggerItem's
+    // opacity/transform tween) on this first mount, and web fonts can
+    // still be swapping in too — both shift the text's real on-screen
+    // position after this single mount-time measurement. Without a
+    // scroll/resize event to force a recompute, that first (wrong)
+    // measurement is what stays on screen. Keep re-measuring every frame
+    // for a short settle window to track it in, then stop.
+    const settleUntil = performance.now() + 1200;
+    const settleLoop = () => {
+      update();
+      settleRafId = performance.now() < settleUntil ? requestAnimationFrame(settleLoop) : null;
+    };
+    settleRafId = requestAnimationFrame(settleLoop);
+
+    if (typeof document !== 'undefined' && 'fonts' in document) {
+      document.fonts.ready.then(() => update());
+    }
+
     const scrollEl = (wrapRef.current?.closest('.overflow-y-auto') as HTMLElement | null) ?? window;
     scrollEl.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onScroll);
@@ -128,6 +147,7 @@ const DynamicHeroMask: React.FC<{
       scrollEl.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', onScroll);
       if (rafId !== null) cancelAnimationFrame(rafId);
+      if (settleRafId !== null) cancelAnimationFrame(settleRafId);
     };
   }, []);
 
